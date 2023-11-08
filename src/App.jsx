@@ -1,12 +1,39 @@
-import React from 'react';
+import React, {  useEffect, useState } from 'react';
 import './App.css';
-import ListItems from './components/ListItems/ListItems';
+import Goods from './components/Goods/Goods';
 import Filters from './components/Filters/Filters';
+import { Pagination } from 'antd';
+import { fetchGoodsList } from './store/goodsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
+
 
 function App() {
 
+	const [goods, setGoods] = useState([])
+	const [filtersValue, setFiltersValue] = useState({
+		bestOffer: false,
+		inputValue: '',
+		caategory: '',
+	})
+ 	const dispatch = useDispatch()
+	useEffect(() => {
+		dispatch(fetchGoodsList())
+	}, [])
+	const dataFromServer = useSelector(state => state.goods.goods)
+	// let newGoodsList = [...goods].filter(item => item["hasDiscount"] === true)
+	// newGoodsList = newGoodsList.map((item) => ({
+	// 	...item,
+	// 	"finishPrice": Math.round(item["price"] * ((100 - item["discountPercent"]) / 100)),
+	//  }))
+	// console.log('newGoodList', newGoodsList);
+
+
 	
 	
+
+	
+
 	return (
 		<div className="App">
 			<header>
@@ -17,11 +44,14 @@ function App() {
 				</div>
 			</header>
 			<div className='main'>
-				<Filters />
-				<div className='goods-list-wrapper'>
-					<ListItems />
+				<Filters data={ data } setData={setData} />
+				<div className='goods-list goods-list-wrapper'>
+					{!!data && data.map((item) => <Goods props={item} key={item.id} />)}
 				</div>
 			</div>
+			<footer>
+				<Pagination  defaultCurrent={1} total={50}/>
+			</footer>
 		</div>
   );
 }

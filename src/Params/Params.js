@@ -4,3 +4,18 @@ export const hostUrl = {
 	signUp: 'http://localhost:4002/signup',
 	signIn: 'http://localhost:4002/signin',
 }
+
+export const categories = ['phone', 'computers', 'kitchen', 'TV']
+
+export const CATEGOTIES_MAP = {
+	phone: 'телефоны',
+	computers: 'компьютеры',
+	kitchen: 'кухня',
+	TV: 'ТВ',
+}
+
+export const STATUS_MAP = {
+	pending: 'pending',
+	fulfilled: 'fulfilled',
+	rejected: 'rejected',
+}
