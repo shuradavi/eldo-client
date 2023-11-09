@@ -14,15 +14,15 @@ function App() {
 		"name": '',
 		"category": [],
 	}
-
+	const [filtersValue, setFiltersValue] = useState(initialValue)
+	let goods = useSelector(state => state.goods.goods)
 	const dispatch = useDispatch()
-	
+
 	useEffect(() => {
 		dispatch(fetchGoodsList())
 	}, [])
 
-	const [filtersValue, setFiltersValue] = useState(initialValue)
-	let goods = useSelector(state => state.goods.goods)
+	
 	console.log('goods: ', goods);
 	
 	
@@ -39,13 +39,11 @@ function App() {
 
 	const filterFunc = (array) => {
 		let newArr = [...array]
-		if (!filtersValue["hasDiscount"]) {
-			if (!!filtersValue["category"].length) {
-				for (let i = 0; i < newArr.length; i++) {
-					newArr = newArr.filter(item => item["category"] === filtersValue["category"][i])
-				} return newArr;
-			} else return newArr;
-		} else newArr = newArr.filter(item => item["hasDiscount"] === filtersValue["hasDiscount"])
+		if (!!filtersValue.name) {
+			newArr = newArr.filter(item => item["name"].toLowerCase().includes(filtersValue.name.toLowerCase()))
+			console.log('newArr :', newArr);
+		}
+		// newArr = newArr.filter(item => item["name"].toLowerCase().includes(filtersValue["name"]).toLowerCase())
 		return newArr;
 	}
 
@@ -59,9 +57,11 @@ function App() {
 				</div>
 			</header>
 			<div className='main'>
-				<Filters filtersValue={ filtersValue } onSelectChange={onSelectChange} onCheckedChange={onCheckedChange} />
+				<Filters filtersValue={ filtersValue} setFiltersValue={ setFiltersValue } onSelectChange={onSelectChange} onCheckedChange={onCheckedChange} />
 				<div className='goods-list goods-list-wrapper'>
-					{!!goods.length && filterFunc(goods).map((item) => <Goods props={item} key={item.id} />)}
+					{(!goods.length || !filterFunc(goods).length) ? <div>По заданным параметрам товаров не найдено</div> : (filterFunc(goods).map((item) => <Goods props={item} key={item.id} />))}
+
+					{/* {!!goods.length && filterFunc(goods).map((item) => <Goods props={item} key={item.id} />)} */}
 				</div>
 			</div>
 			<footer>

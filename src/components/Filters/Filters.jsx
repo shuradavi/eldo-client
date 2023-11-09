@@ -2,7 +2,7 @@ import React from 'react';
 import { Checkbox, Slider, Input, Select } from 'antd';
 import { categories, CATEGOTIES_MAP } from '../../Params/Params';
 
-const Filters = ({ filtersValue, onSelectChange, onCheckedChange }) => {
+const Filters = ({filtersValue, setFiltersValue, onSelectChange, onCheckedChange }) => {
 
 
 	const onChange = (value) => {
@@ -32,6 +32,10 @@ const Filters = ({ filtersValue, onSelectChange, onCheckedChange }) => {
 		console.log(`selected ${value}`);
 		// филтрация массива по заданным параметрам, изменение состояния
 	};
+
+	const inputHandler = (e) => {
+		setFiltersValue({...filtersValue, "name": e.target.value})
+	}
 	
 	return (
 		<div className='filters'>
@@ -54,7 +58,7 @@ const Filters = ({ filtersValue, onSelectChange, onCheckedChange }) => {
 							}}
 						defaultValue={[39000, 300000]}
 					/>
-					<Input className='input-goods' placeholder="Поиск товара" />
+					<Input className='input-goods' placeholder="Поиск товара" onChange={e => inputHandler(e)}/>
 				</div>
 			</div>
 		</div>
