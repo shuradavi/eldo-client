@@ -9,30 +9,45 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 function App() {
+	const initialValue = {
+		"hasDiscount": false,
+		"name": '',
+		"category": [],
+	}
 
-	const [goods, setGoods] = useState([])
-	const [filtersValue, setFiltersValue] = useState({
-		bestOffer: false,
-		inputValue: '',
-		caategory: '',
-	})
- 	const dispatch = useDispatch()
+	const dispatch = useDispatch()
+	
 	useEffect(() => {
 		dispatch(fetchGoodsList())
 	}, [])
-	const dataFromServer = useSelector(state => state.goods.goods)
-	// let newGoodsList = [...goods].filter(item => item["hasDiscount"] === true)
-	// newGoodsList = newGoodsList.map((item) => ({
-	// 	...item,
-	// 	"finishPrice": Math.round(item["price"] * ((100 - item["discountPercent"]) / 100)),
-	//  }))
-	// console.log('newGoodList', newGoodsList);
 
-
+	const [filtersValue, setFiltersValue] = useState(initialValue)
+	let goods = useSelector(state => state.goods.goods)
+	console.log('goods: ', goods);
 	
 	
 
-	
+	const onSelectChange = (value) => {
+		console.log('select', value);
+		setFiltersValue({ ...filtersValue, "category": value[0] })
+	}
+
+	const onCheckedChange = (e) => {
+		console.log('checked change');
+		setFiltersValue({...filtersValue, "hasDiscount": !["hasDiscount"]})
+	}
+
+	const filterFunc = (array) => {
+		let newArr = [...array]
+		if (!filtersValue["hasDiscount"]) {
+			if (!!filtersValue["category"].length) {
+				for (let i = 0; i < newArr.length; i++) {
+					newArr = newArr.filter(item => item["category"] === filtersValue["category"][i])
+				} return newArr;
+			} else return newArr;
+		} else newArr = newArr.filter(item => item["hasDiscount"] === filtersValue["hasDiscount"])
+		return newArr;
+	}
 
 	return (
 		<div className="App">
@@ -44,9 +59,9 @@ function App() {
 				</div>
 			</header>
 			<div className='main'>
-				<Filters data={ data } setData={setData} />
+				<Filters filtersValue={ filtersValue } onSelectChange={onSelectChange} onCheckedChange={onCheckedChange} />
 				<div className='goods-list goods-list-wrapper'>
-					{!!data && data.map((item) => <Goods props={item} key={item.id} />)}
+					{!!goods.length && filterFunc(goods).map((item) => <Goods props={item} key={item.id} />)}
 				</div>
 			</div>
 			<footer>

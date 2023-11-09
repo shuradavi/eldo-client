@@ -2,32 +2,36 @@ import React from 'react';
 import { Checkbox, Slider, Input, Select } from 'antd';
 import { categories, CATEGOTIES_MAP } from '../../Params/Params';
 
+const Filters = ({ filtersValue, onSelectChange, onCheckedChange }) => {
 
-const onChange = (value) => {
-	console.log('onChange: ', value);
-};
-  
-const onAfterChange  = (value) => {
-	console.log('onAfterChange: ', value);
-}
-const onCheckedChange = (e) => {
-	console.log(`checked`);
-}
 
-const options = [];
+	const onChange = (value) => {
+		console.log('onChange: ', value);
+		onCheckedChange()
+	};
+	  
+	// const onAfterChange  = (value) => {
+	// 	console.log('onAfterChange: ', value);
+	// }
+	// const onCheckedHandler = (e) => {
+	// 	console.log(`checked`);
+	// 	onCheckedChange(e)
+	// }
+	
+	const options = [];
+	
+	for (let i = 0; i < 4; i++) {
+	  options.push({
+		value: categories[i],
+		label: CATEGOTIES_MAP[categories[i]],
+	  });
+	}
 
-for (let i = 0; i < 4; i++) {
-  options.push({
-    value: categories[i],
-    label: CATEGOTIES_MAP[categories[i]],
-  });
-}
-const handleChange = (value) => {
-	console.log(`selected ${value}`);
-	// филтрация массива по заданным параметрам, изменение состояния
-};
-
-const Filters = () => {
+	const handleChange = (value) => {
+		onSelectChange(value)
+		console.log(`selected ${value}`);
+		// филтрация массива по заданным параметрам, изменение состояния
+	};
 	
 	return (
 		<div className='filters'>

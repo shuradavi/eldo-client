@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Space } from 'antd';
 
 const Goods = ({ props }) => {
-	const { name, price, currency, imgSource, finishPrice } = props;
+	const { name, price, currency, imgSource, priceWithDiscount } = props;
 	return (
 		<div className='goods-item'>
 			<div className='img-container'>
@@ -13,7 +13,7 @@ const Goods = ({ props }) => {
 			</div>
 			<div className='price'>
 				<div className='item-price'>{`${price} ${currency}`}</div>
-				<div className='item-price-discount'>{`${finishPrice} ${currency} `}</div>
+				<div className='item-price-discount'>{`${priceWithDiscount} ${currency} `}</div>
 			</div>
 			<Space wrap>
 				<Button type='primary' danger>
