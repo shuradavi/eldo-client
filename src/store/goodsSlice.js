@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { STATUS_MAP } from '../Params/Params';
 import axios from 'axios';
 import { hostUrl } from '../Params/Params';
-import { useDispatch } from 'react-redux';
 
 const goodsSlice = createSlice({
 	name: 'goods',
