@@ -12,9 +12,14 @@ const Goods = ({ props }) => {
 				{name}
 			</div>
 			<div className='price'>
-				<div className='item-price'>{`${price} ${currency}`}</div>
-				<div className='item-price-discount'>{`${priceWithDiscount} ${currency} `}</div>
+				{props.hasOwnProperty("priceWithDiscount") ? 
+				<div>
+					<div className='item-price-before'>{`${price} ${currency}`}</div>
+					<div className='item-price-discount'>{`${priceWithDiscount} ${currency} `}</div>
+				</div>
+				 : <div className='item-price'>{`${price} ${currency}`}</div>}
 			</div>
+
 			<Space wrap>
 				<Button type='primary' danger>
 					Купить

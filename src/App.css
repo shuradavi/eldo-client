@@ -162,6 +162,9 @@ display: flex;
 }
 
 .item-price {
+color: rgb(119, 119, 119);
+}
+.item-price-before {
 	text-decoration-line: line-through;
 	color: rgb(119, 119, 119);
 }

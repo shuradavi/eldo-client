@@ -18,10 +18,16 @@ const goodsSlice = createSlice({
 			if (state.status = STATUS_MAP.pending) {
 				state.goods = action.payload
 				state.status = STATUS_MAP.fulfilled
-				state.goods = state.goods.map(item => ({
-					...item,
-					"priceWithDiscount": Math.round(item["price"] * ((100 - item["discountPercent"]) / 100))
-				}))
+				let newArr = [];
+				for (let i = 0; i < state.goods.length; i++) {
+					if (state.goods[i]["hasDiscount"] === true) {
+						newArr.push({
+							...state.goods[i],
+							"priceWithDiscount": Math.round(state.goods[i]["price"] * ((100 - state.goods[i]["discountPercent"]) / 100))
+						})
+					} else newArr.push(state.goods[i])
+				}
+				state.goods = newArr;
 			}
 		},
 		fetchFail: (state, action) => {
