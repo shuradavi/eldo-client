@@ -39,6 +39,14 @@ function App() {
 		}
 		return newArr;
 	}
+
+	const getDefaultPriceValue = (array) => {
+		let price = [];
+		if ()
+		
+	}
+	const defaultPriceValue = []
+
 	
 	return (
 		<div className="App">
@@ -62,13 +70,14 @@ function App() {
 						<div className='range-best-input'>
 							<Checkbox className='checkbox' onChange={onCheckedHandler}>лучшее предложение</Checkbox>
 							<Slider
+								range marks={marks} defaultValue={[26, 37]}
 								className='range-slider'
-								min={39000}
-								max={300000}
-								range={{
-									draggableTrack: true,
-								}}
-								defaultValue={[39000, 300000]}
+								// min={39000}
+								// max={300000}
+								// range={{
+								// 	draggableTrack: true,
+								// }}
+								// defaultValue={[39000, 300000]}
 							/>
 							<Input className='input-goods' placeholder="Поиск товара" onChange={e => inputHandler(e)} />
 						</div>
