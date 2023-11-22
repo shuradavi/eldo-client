@@ -35,3 +35,5 @@ export const optionsInitialization = () => {
 	}
 	return options;
 }
+
+export let initialPriceValue = [1, 250000]
