@@ -1,22 +1,26 @@
 import React, {useState} from 'react';
-import { initialFilterValue } from '../../Params/Params';
+import { initialFilterValue, paginationInitialValue } from '../../Params/Params';
 import { useSelector } from 'react-redux';
 import { optionsInitialization, initialPriceValue } from '../../Params/Params';
 import { Checkbox, Select, Input, Pagination } from 'antd';
 import RangeSlider from '../RangeSlider/RangeSlider'
 import Goods from '../Goods/Goods'
-import { getMinAndMaxPrice } from '../../functions/functions';
+// import { getMinAndMaxPrice } from '../../functions/functions';
 
 
 
 const GoodsList = () => {
 	const [filtersValue, setFiltersValue] = useState(initialFilterValue)
-	
+	const [paginationValues, setPaginationValue] = useState(paginationInitialValue)
+	const onPageNumberHandler = (value) => {
+		setPaginationValue((prev) => {
+			return {
+				...prev,
+				currentPage: value
+			}
+		})
+	}
 	let goods = useSelector(state => state.goods.goods)
-	
-	// if (!!goods.length) {
-	// 	initialPriceValue = getMinAndMaxPrice(goods)
-	// }
 	const [inputCostValue, setInputCostValue] = useState(initialPriceValue);	
 	const options = optionsInitialization();  // инициализируем список в селект/
 	const onSelectHandler = (value) => {
@@ -54,9 +58,20 @@ const GoodsList = () => {
 		} else 
 			return (inputCostValue[0] < g["price"] && g["price"] < inputCostValue[1])
 	}
+	const indexOfLastProduct = (paginationValues.currentPage * paginationValues.pageSize);
+	const indexOfFirstProduct = (paginationValues.currentPage * paginationValues.pageSize - paginationValues.pageSize) 
 	const goodsListForRender = goods.filter(g => {
 		return filterByBestOffer(g) && filterByName(g) && filterByCategory(g) && filterByPrice(g)
 	})
+	const onShowSizeChange = (currentPageValue, pageSizeValue) => {
+		// console.log('current: ', currentPage, '; pageSize: ', pageSize);
+		setPaginationValue(prev => {
+			return {
+				...prev,
+				pageSize: pageSizeValue,
+			}
+		})
+	}
 	
 	return (
 		<div className="goods-list">
@@ -79,11 +94,11 @@ const GoodsList = () => {
 					</div>
 				</div>
 				<div className='goods-list goods-list-wrapper'>
-					{(!goodsListForRender.length) ? <div>По заданным параметрам товаров не найдено</div> : (goodsListForRender.map((item) => <Goods props={item} key={item.id} />))}
+					{(!goodsListForRender.length) ? <div>По заданным параметрам товаров не найдено</div> : (goodsListForRender.slice(indexOfFirstProduct, indexOfLastProduct).map((item) => <Goods props={item} key={item.id} />))}
 				</div>
 			</div>
 			<footer>
-				<Pagination defaultCurrent={1} total={50} />
+				<Pagination showSizeChanger onChange={onPageNumberHandler} pageSize={paginationValues.pageSize} current={paginationValues.currentPage} onShowSizeChange={onShowSizeChange} pageSizeOptions={paginationValues.pageSizeOptions} total={goodsListForRender.length} />
 			</footer>
 		</div>
 	);

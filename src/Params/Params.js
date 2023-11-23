@@ -37,3 +37,9 @@ export const optionsInitialization = () => {
 }
 
 export let initialPriceValue = [1, 250000]
+
+export const paginationInitialValue = {
+	pageSize: 5,
+	currentPage: 1,
+	pageSizeOptions: [3, 5, 10],
+}
