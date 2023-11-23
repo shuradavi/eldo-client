@@ -1,17 +1,34 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { initialFilterValue, paginationInitialValue } from '../../Params/Params';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { optionsInitialization, initialPriceValue } from '../../Params/Params';
-import { Checkbox, Select, Input, Pagination } from 'antd';
-import RangeSlider from '../RangeSlider/RangeSlider'
+import { Checkbox, Select, Input, Pagination, Modal } from 'antd';
+import CostFilter from '../CostFilter/CostFilter'
 import Goods from '../Goods/Goods'
+import { getProductInfo } from '../API/get';
+import { calcPriceWithDiscount, calcCashbackSize } from '../../functions/functions';
+import { fetchProductById } from '../../store/currentProductSlice';
+import ProductCard from '../ProductCard/ProductCard';
 // import { getMinAndMaxPrice } from '../../functions/functions';
 
 
 
 const GoodsList = () => {
+	const dispatch = useDispatch()
+	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [filtersValue, setFiltersValue] = useState(initialFilterValue)
 	const [paginationValues, setPaginationValue] = useState(paginationInitialValue)
+	const showModal = async (id) => {
+		dispatch(fetchProductById(id))
+		setIsModalOpen(true);
+	};
+	const handleAddToCart = () => {
+		setIsModalOpen(false);
+	};
+	
+	const handleCancel  = () => {
+		setIsModalOpen(false)
+	}
 	const onPageNumberHandler = (value) => {
 		setPaginationValue((prev) => {
 			return {
@@ -63,7 +80,7 @@ const GoodsList = () => {
 	const goodsListForRender = goods.filter(g => {
 		return filterByBestOffer(g) && filterByName(g) && filterByCategory(g) && filterByPrice(g)
 	})
-	const onShowSizeChange = (currentPageValue, pageSizeValue) => {
+	const onShowSizeChange = (_, pageSizeValue) => {
 		// console.log('current: ', currentPage, '; pageSize: ', pageSize);
 		setPaginationValue(prev => {
 			return {
@@ -76,8 +93,8 @@ const GoodsList = () => {
 	return (
 		<div className="goods-list">
 			<div className='main'>
-				<div className='filters'>
-					<div className='filters-wrapper'>
+				<div className='filters-wrapper'>
+					<div className='filters'>
 						<Select
 							className='category-select'
 							mode="tags"
@@ -85,16 +102,25 @@ const GoodsList = () => {
 							onChange={onSelectHandler}
 							options={options}
 						/>
-						<div className='range-best-input'>
-							<RangeSlider inputCostValue={inputCostValue} setInputCostValue={setInputCostValue} />
+						<div className='cost-best-input'>
+							<CostFilter inputCostValue={inputCostValue} setInputCostValue={setInputCostValue} />
 							<Checkbox className='checkbox' onChange={onCheckedHandler}></Checkbox>
 							<span style={{fontWeight: 'bold'}}>лучшее предложение</span>
 							<Input className='input-goods' placeholder="Поиск товара" onChange={e => inputHandler(e)} />
 						</div>
 					</div>
 				</div>
-				<div className='goods-list goods-list-wrapper'>
-					{(!goodsListForRender.length) ? <div>По заданным параметрам товаров не найдено</div> : (goodsListForRender.slice(indexOfFirstProduct, indexOfLastProduct).map((item) => <Goods props={item} key={item.id} />))}
+				<div className='goods-list'>
+						<Modal
+							className='product-card'
+							title="О товаре"
+						open={isModalOpen}
+						// okButtonProps={{type:'primary'}}
+							onOk={handleAddToCart}
+							onCancel={handleCancel}>
+							<ProductCard />
+						</Modal>
+					{(!goodsListForRender.length) ? <div>По заданным параметрам товаров не найдено</div> : (goodsListForRender.slice(indexOfFirstProduct, indexOfLastProduct).map((product) => <Goods product={product} key={product.id} showModal={showModal} />))}
 				</div>
 			</div>
 			<footer>

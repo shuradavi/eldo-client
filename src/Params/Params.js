@@ -43,3 +43,4 @@ export const paginationInitialValue = {
 	currentPage: 1,
 	pageSizeOptions: [3, 5, 10],
 }
+

@@ -1,7 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { STATUS_MAP } from '../Params/Params';
 import axios from 'axios';
 import { hostUrl } from '../Params/Params';
+import { calcPriceWithDiscount } from '../functions/functions';
 
 const goodsSlice = createSlice({
 	name: 'goods',
@@ -23,7 +24,7 @@ const goodsSlice = createSlice({
 					if (state.goods[i]["hasDiscount"] === true) {
 						newArr.push({
 							...state.goods[i],
-							"priceWithDiscount": Math.round(state.goods[i]["price"] * ((100 - state.goods[i]["discountPercent"]) / 100))
+							"priceWithDiscount": calcPriceWithDiscount(state.goods[i])
 						})
 					} else newArr.push(state.goods[i])
 				}
@@ -44,7 +45,6 @@ export default goodsSlice.reducer
 
 export const fetchGoodsList = () => async (dispatch) => {
 	try {
-		console.log('Запуск fetchGoodsList()');
 		dispatch(fetchStart())
 		const response = await axios.get(hostUrl.listItems)
 		dispatch(fetchSuccess(response.data))

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Slider, Switch, InputNumber, Space } from 'antd';
 
-const RangeSlider = ({inputCostValue, setInputCostValue }) => {
+const CostFilter = ({inputCostValue, setInputCostValue }) => {
 
 	const onMinPriceChangeHandlr = (value) => {	
 		setInputCostValue(prev => {
@@ -20,7 +20,7 @@ const RangeSlider = ({inputCostValue, setInputCostValue }) => {
 
 	return (
 		<>	
-			<span className='price-input'>Цена</span>
+			<span className='cost-filter-title'>Цена</span>
 			<Space wrap>
 				<InputNumber size='small' min={1} max={400000} onChange={onMinPriceChangeHandlr} defaultValue={`от ${inputCostValue[0]}`}/>
 				<InputNumber size='small' min={1} max={400000} onChange={onMaxPriceChangeHandlr} defaultValue={`до ${inputCostValue[1]}`} />
@@ -30,4 +30,4 @@ const RangeSlider = ({inputCostValue, setInputCostValue }) => {
 	);
 };
 
-export default RangeSlider;
+export default CostFilter;

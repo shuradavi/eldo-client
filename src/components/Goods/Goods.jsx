@@ -1,18 +1,21 @@
 import React from 'react';
 import { Button, Space } from 'antd';
 
-const Goods = ({ props }) => {
-	const { name, price, currency, imgSource, priceWithDiscount } = props;
+const Goods = ({ product, showModal }) => {
+	const { name, price, currency, imgSource, priceWithDiscount } = product;
+	const onItemClickHandler = () => {
+		showModal(product["id"])
+	}
 	return (
-		<div className='goods-item'>
+		<div className='goods-item' onClick={onItemClickHandler}>
 			<div className='img-container'>
-				<img className='img-item' alt={props.name} src={imgSource} />
+				<img className='img-item' alt={name} src={imgSource} />
 			</div>
-			<div className='item-title'>
+			<div>
 				{name}
 			</div>
-			<div className='price'>
-				{props.hasOwnProperty("priceWithDiscount") ? 
+			<div className='product-price-container'>
+				{product.hasOwnProperty("priceWithDiscount") ? 
 				<div>
 					<div className='item-price-before'>{`${price} ${currency}`}</div>
 					<div className='item-price-discount'>{`${priceWithDiscount} ${currency} `}</div>
