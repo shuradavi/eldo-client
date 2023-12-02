@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Slider, Switch, InputNumber, Space } from 'antd';
+import { InputNumber, Space } from 'antd';
 
 const CostFilter = ({inputCostValue, setInputCostValue }) => {
 
@@ -24,7 +24,6 @@ const CostFilter = ({inputCostValue, setInputCostValue }) => {
 			<Space wrap>
 				<InputNumber size='small' min={1} max={400000} onChange={onMinPriceChangeHandlr} defaultValue={`от ${inputCostValue[0]}`}/>
 				<InputNumber size='small' min={1} max={400000} onChange={onMaxPriceChangeHandlr} defaultValue={`до ${inputCostValue[1]}`} />
-				{/* <Slider /> */}
 			</Space>
 		</>
 	);

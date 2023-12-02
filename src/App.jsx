@@ -4,11 +4,7 @@ import './App.css';
 import { fetchGoodsList } from './store/goodsSlice';
 import GoodsList from './components/GoodsList/GoodsList';
 
-
-
-
 function App() {
-	
 	const dispatch = useDispatch()
 	useEffect(() => {
 		dispatch(fetchGoodsList())

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { STATUS_MAP } from "../Params/Params";
 import { getProductInfo } from "../components/API/get";
-import { calcCashbackSize, calcPriceWithDiscount } from "../functions/functions";
+import { calcCashbackSize, calcPriceWithDiscount, calcRating } from "../functions/functions";
 
 const currentProductSlice = createSlice({
 	name: 'product',
@@ -21,11 +21,18 @@ const currentProductSlice = createSlice({
 				let newObj = {};
 				state.product["hasDiscount"] ?
 					newObj =
-					{	...state.product,
+					{
+						...state.product,
 						"priceWithDiscount": calcPriceWithDiscount(state.product),
-						"cashbackSize": calcCashbackSize(state.product)
+						"cashbackSize": Math.round(calcCashbackSize(state.product)),
+						"rating": calcRating(state.product)
 					} :
-					newObj = { ...state.product }
+					newObj =
+					{
+						...state.product,
+						"cashbackSize": Math.round(calcCashbackSize(state.product)),
+						"rating": calcRating(state.product)
+					}
 				state.product = newObj;
 			}
 		},

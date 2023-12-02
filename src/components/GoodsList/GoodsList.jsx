@@ -2,22 +2,23 @@ import React, { useState } from 'react';
 import { initialFilterValue, paginationInitialValue } from '../../Params/Params';
 import { useDispatch, useSelector } from 'react-redux';
 import { optionsInitialization, initialPriceValue } from '../../Params/Params';
-import { Checkbox, Select, Input, Pagination, Modal } from 'antd';
+import { Checkbox, Select, Input, Pagination, Modal, Button } from 'antd';
 import CostFilter from '../CostFilter/CostFilter'
 import Goods from '../Goods/Goods'
-import { getProductInfo } from '../API/get';
-import { calcPriceWithDiscount, calcCashbackSize } from '../../functions/functions';
 import { fetchProductById } from '../../store/currentProductSlice';
 import ProductCard from '../ProductCard/ProductCard';
-// import { getMinAndMaxPrice } from '../../functions/functions';
+
 
 
 
 const GoodsList = () => {
+	const goods = useSelector(state => state.goods.goods)
 	const dispatch = useDispatch()
+	const [inputCostValue, setInputCostValue] = useState(initialPriceValue);	
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [filtersValue, setFiltersValue] = useState(initialFilterValue)
 	const [paginationValues, setPaginationValue] = useState(paginationInitialValue)
+	const options = optionsInitialization();  // инициализируем список в селект/
 	const showModal = async (id) => {
 		dispatch(fetchProductById(id))
 		setIsModalOpen(true);
@@ -37,9 +38,7 @@ const GoodsList = () => {
 			}
 		})
 	}
-	let goods = useSelector(state => state.goods.goods)
-	const [inputCostValue, setInputCostValue] = useState(initialPriceValue);	
-	const options = optionsInitialization();  // инициализируем список в селект/
+
 	const onSelectHandler = (value) => {
 		setFiltersValue({ ...filtersValue, "category": value })
 	}
@@ -49,8 +48,9 @@ const GoodsList = () => {
 	const inputHandler = (e) => {
 		setFiltersValue({ ...filtersValue, "name": e.target.value })
 	}
+
 	const filterByBestOffer = (g) => {
-		if (filtersValue["bestOffer"]) {
+		if (filtersValue["bestOffer"]) { // return filtersValue["bestOffer"] && g.hasDiscount
 			return g.hasDiscount
 		} else
 			return true;
@@ -82,12 +82,10 @@ const GoodsList = () => {
 	})
 	const onShowSizeChange = (_, pageSizeValue) => {
 		// console.log('current: ', currentPage, '; pageSize: ', pageSize);
-		setPaginationValue(prev => {
-			return {
-				...prev,
-				pageSize: pageSizeValue,
-			}
-		})
+		setPaginationValue(prev => ({
+			...prev,
+			pageSize: pageSizeValue
+		}))
 	}
 	
 	return (
@@ -114,18 +112,23 @@ const GoodsList = () => {
 						<Modal
 							className='product-card'
 							title="О товаре"
-						open={isModalOpen}
-						// okButtonProps={{type:'primary'}}
+							open={isModalOpen}
 							onOk={handleAddToCart}
-							onCancel={handleCancel}>
+							onCancel={handleCancel}
+							footer={[
+								// <Button onClick={onMinusClickHandler} icon={<MinusOutlined />} />,
+								// <Button onClick={onPlusClickHandler} icon={<PlusOutlined />} />,
+								<Button key="submit" onClick={handleAddToCart}>
+									Добавить в корзину
+								</Button>,
+							]}
+						>
 							<ProductCard />
 						</Modal>
 					{(!goodsListForRender.length) ? <div>По заданным параметрам товаров не найдено</div> : (goodsListForRender.slice(indexOfFirstProduct, indexOfLastProduct).map((product) => <Goods product={product} key={product.id} showModal={showModal} />))}
 				</div>
 			</div>
-			<footer>
-				<Pagination showSizeChanger onChange={onPageNumberHandler} pageSize={paginationValues.pageSize} current={paginationValues.currentPage} onShowSizeChange={onShowSizeChange} pageSizeOptions={paginationValues.pageSizeOptions} total={goodsListForRender.length} />
-			</footer>
+			<Pagination showSizeChanger onChange={onPageNumberHandler} pageSize={paginationValues.pageSize} current={paginationValues.currentPage} onShowSizeChange={onShowSizeChange} pageSizeOptions={paginationValues.pageSizeOptions} total={goodsListForRender.length} />
 		</div>
 	);
 };

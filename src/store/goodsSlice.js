@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { STATUS_MAP } from '../Params/Params';
 import axios from 'axios';
 import { hostUrl } from '../Params/Params';
-import { calcPriceWithDiscount } from '../functions/functions';
+import { calcPriceWithDiscount, calcCashbackSize } from '../functions/functions';
 
 const goodsSlice = createSlice({
 	name: 'goods',
@@ -24,11 +24,16 @@ const goodsSlice = createSlice({
 					if (state.goods[i]["hasDiscount"] === true) {
 						newArr.push({
 							...state.goods[i],
-							"priceWithDiscount": calcPriceWithDiscount(state.goods[i])
+							"priceWithDiscount": calcPriceWithDiscount(state.goods[i]),
+							"cashbackSize": Math.round(calcCashbackSize(state.goods[i]))
 						})
-					} else newArr.push(state.goods[i])
+					} else newArr.push({
+						...state.goods[i],
+						"cashbackSize": Math.round(calcCashbackSize(state.goods[i]))
+					})
 				}
 				state.goods = newArr;
+				console.log('state.goods: ', state.goods);
 			}
 		},
 		fetchFail: (state, action) => {
