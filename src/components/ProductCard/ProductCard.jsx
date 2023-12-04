@@ -1,24 +1,10 @@
-import React, {useState} from 'react';
-import { Rate, Button } from 'antd'
-import { MinusOutlined, PlusOutlined} from '@ant-design/icons'
+import React from 'react';
+import { Rate} from 'antd'
 import { useSelector } from 'react-redux';
 import { calcPriceWithDiscount } from '../../functions/functions';
 
 const ProductCard = () => {
-	// const [count, setCount] = useState(1);
-	// const increase = () => {
-	// 	setCount(count + 1);
-	//   };
-	//   const decline = () => {
-	// 	let newCount = count - 1;
-	// 	if (newCount < 0) {
-	// 	  newCount = 0;
-	// 	}
-	// 	setCount(newCount);
-	//   };
 	const product = useSelector(state => state.product.product)
-	console.log(product);
-	console.log(product["guarantee"]);
 		return (
 			<div>
 				<img className='img-item' alt={product["name"]} src={product["imgSource"]} />

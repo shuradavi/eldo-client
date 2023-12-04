@@ -9,6 +9,7 @@ const currentProductSlice = createSlice({
 		product: {},
 		status: null,
 		error: null,
+		isModalOpen: false
 	},
 	reducers: {
 		fetchStart: (state) => {
@@ -34,17 +35,23 @@ const currentProductSlice = createSlice({
 						"rating": calcRating(state.product)
 					}
 				state.product = newObj;
+				state.isModalOpen = true;
 			}
 		},
 		fetchFail: (state, action) => {
 			state.status = STATUS_MAP.rejected
 			state.error = action.payload
 			console.log('Error: ', action.payload);
+		},
+		toggleOffModalStatus: (state) => {
+			console.log('Modal is Closed!');
+			state.isModalOpen = false;
+			state.product = {};
 		}
 	}
 })
 
-export const { fetchStart, fetchSuccess, fetchFail } = currentProductSlice.actions
+export const { fetchStart, fetchSuccess, fetchFail, toggleOffModalStatus } = currentProductSlice.actions
 export default currentProductSlice.reducer
 export const fetchProductById = (id) => async (dispatch) => {
 	try {

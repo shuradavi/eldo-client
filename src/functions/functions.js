@@ -48,3 +48,12 @@ export const calcRating = (product) => {
 		return Math.round10((result / (product["reviews"].length)), -1)
 	} else return 0
 }
+
+export const isEmptyObject = (obj) => {
+    for (let i in obj) {
+        if (obj.hasOwnProperty(i)) {
+            return false;
+        }
+    }
+    return true;
+}

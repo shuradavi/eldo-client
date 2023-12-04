@@ -1,13 +1,16 @@
 import React from 'react';
 import { Button, Space } from 'antd';
+import { useDispatch } from 'react-redux';
+import { fetchProductById } from '../../store/currentProductSlice';
 
-const Goods = ({ product, showModal }) => {
+const Goods = ({ product }) => {
 	const { name, price, currency, imgSource, priceWithDiscount, cashbackPercent, cashbackSize } = product;
-	const onItemClickHandler = () => {
-		showModal(product["id"])
-	}
+	const dispatch = useDispatch();
+	const onProductClickHandler = async () => {
+		dispatch(fetchProductById(product['id']))
+	};
 	return (
-		<div className='goods-item' onClick={onItemClickHandler}>
+		<div className='goods-item' onClick={onProductClickHandler}>
 			<div className='img-container'>
 				<img className='img-item' alt={name} src={imgSource} />
 			</div>

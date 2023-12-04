@@ -33,7 +33,6 @@ const goodsSlice = createSlice({
 					})
 				}
 				state.goods = newArr;
-				console.log('state.goods: ', state.goods);
 			}
 		},
 		fetchFail: (state, action) => {

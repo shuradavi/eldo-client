@@ -1,35 +1,20 @@
 import React, { useState } from 'react';
 import { initialFilterValue, paginationInitialValue } from '../../Params/Params';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { optionsInitialization, initialPriceValue } from '../../Params/Params';
 import { Checkbox, Select, Input, Pagination, Modal, Button } from 'antd';
 import CostFilter from '../CostFilter/CostFilter'
 import Goods from '../Goods/Goods'
-import { fetchProductById } from '../../store/currentProductSlice';
-import ProductCard from '../ProductCard/ProductCard';
-
-
-
+import ProductCardModal from '../ProductCardModal/ProductCardModal';
 
 const GoodsList = () => {
 	const goods = useSelector(state => state.goods.goods)
-	const dispatch = useDispatch()
+	const hashMap = useSelector(state => state.hashMap.hashMap)
 	const [inputCostValue, setInputCostValue] = useState(initialPriceValue);	
-	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [filtersValue, setFiltersValue] = useState(initialFilterValue)
 	const [paginationValues, setPaginationValue] = useState(paginationInitialValue)
 	const options = optionsInitialization();  // инициализируем список в селект/
-	const showModal = async (id) => {
-		dispatch(fetchProductById(id))
-		setIsModalOpen(true);
-	};
-	const handleAddToCart = () => {
-		setIsModalOpen(false);
-	};
 	
-	const handleCancel  = () => {
-		setIsModalOpen(false)
-	}
 	const onPageNumberHandler = (value) => {
 		setPaginationValue((prev) => {
 			return {
@@ -109,6 +94,7 @@ const GoodsList = () => {
 					</div>
 				</div>
 				<div className='goods-list'>
+					{/* <ProductCardModal />
 						<Modal
 							className='product-card'
 							title="О товаре"
@@ -124,8 +110,9 @@ const GoodsList = () => {
 							]}
 						>
 							<ProductCard />
-						</Modal>
-					{(!goodsListForRender.length) ? <div>По заданным параметрам товаров не найдено</div> : (goodsListForRender.slice(indexOfFirstProduct, indexOfLastProduct).map((product) => <Goods product={product} key={product.id} showModal={showModal} />))}
+						</Modal> */}
+					<ProductCardModal />
+					{(!goodsListForRender.length) ? <div>По заданным параметрам товаров не найдено</div> : (goodsListForRender.slice(indexOfFirstProduct, indexOfLastProduct).map((product) => <Goods product={product} key={product.id} />))}
 				</div>
 			</div>
 			<Pagination showSizeChanger onChange={onPageNumberHandler} pageSize={paginationValues.pageSize} current={paginationValues.currentPage} onShowSizeChange={onShowSizeChange} pageSizeOptions={paginationValues.pageSizeOptions} total={goodsListForRender.length} />

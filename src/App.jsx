@@ -3,6 +3,7 @@ import { useDispatch} from 'react-redux';
 import './App.css';
 import { fetchGoodsList } from './store/goodsSlice';
 import GoodsList from './components/GoodsList/GoodsList';
+import Cart from './components/Cart/Cart';
 
 function App() {
 	const dispatch = useDispatch()
@@ -20,6 +21,7 @@ function App() {
 				</div>
 			</header>
 			<GoodsList />
+			{/* <Cart /> */}
 		</div>
 	);
 }

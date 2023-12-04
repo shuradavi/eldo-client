@@ -25,6 +25,8 @@ export const initialFilterValue = {
 	"category": [],
 }
 
+export const initialCountState = 1;
+
 export const optionsInitialization = () => {
 	const options = [];
 	for (let i = 0; i < Object.keys(CATEGORIES_MAP).length; i++) {
