@@ -4,7 +4,8 @@ import { isEmptyObject } from '../../functions/functions';
 const Cart = () => {
 	const goods = useSelector(state => state.hashMap.hashMap)
 	return (
-		<div>
+		<div className='cart'>
+			Корзина пуста
 			{/* {!isEmptyObject(goods) && goods} */}
 		</div>
 	);

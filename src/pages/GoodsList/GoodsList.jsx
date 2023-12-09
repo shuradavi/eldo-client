@@ -94,23 +94,6 @@ const GoodsList = () => {
 					</div>
 				</div>
 				<div className='goods-list'>
-					{/* <ProductCardModal />
-						<Modal
-							className='product-card'
-							title="О товаре"
-							open={isModalOpen}
-							onOk={handleAddToCart}
-							onCancel={handleCancel}
-							footer={[
-								// <Button onClick={onMinusClickHandler} icon={<MinusOutlined />} />,
-								// <Button onClick={onPlusClickHandler} icon={<PlusOutlined />} />,
-								<Button key="submit" onClick={handleAddToCart}>
-									Добавить в корзину
-								</Button>,
-							]}
-						>
-							<ProductCard />
-						</Modal> */}
 					<ProductCardModal />
 					{(!goodsListForRender.length) ? <div>По заданным параметрам товаров не найдено</div> : (goodsListForRender.slice(indexOfFirstProduct, indexOfLastProduct).map((product) => <Goods product={product} key={product.id} />))}
 				</div>
