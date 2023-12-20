@@ -9,7 +9,6 @@ import ProductCardModal from '../ProductCardModal/ProductCardModal';
 
 const GoodsList = () => {
 	const goods = useSelector(state => state.goods.goods)
-	const hashMap = useSelector(state => state.hashMap.hashMap)
 	const [inputCostValue, setInputCostValue] = useState(initialPriceValue);	
 	const [filtersValue, setFiltersValue] = useState(initialFilterValue)
 	const [paginationValues, setPaginationValue] = useState(paginationInitialValue)

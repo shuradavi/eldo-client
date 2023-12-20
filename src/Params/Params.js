@@ -3,7 +3,10 @@ export const hostUrl = {
 	getItem: 'http://localhost:4002/goods',
 	signUp: 'http://localhost:4002/signup',
 	signIn: 'http://localhost:4002/signin',
+	logOut: 'http://localhost:4002/logout',
 }
+
+
 
 export const CATEGORIES_MAP = {
 	phones: 'телефоны',

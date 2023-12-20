@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch} from 'react-redux';
 import './App.css';
 import { fetchGoodsList } from './store/goodsSlice';
@@ -9,11 +9,13 @@ import Auth from './pages/Auth/Auth';
 import {Route, Routes} from 'react-router-dom'
 import { Layout } from './components/Layout'
 
+
+
 function App() {
 	const dispatch = useDispatch()
 	useEffect(() => {
 		dispatch(fetchGoodsList())
-	}, [])
+	})
 
 	return (
 		<>
@@ -26,17 +28,6 @@ function App() {
 				</Route>
 			</Routes>
 		</>
-		// <div className="App">
-		// 	<header>
-		// 		<div className='navbar'>
-		// 			<div className='goods'>Товары</div>
-		// 			<div className='shopping-cart'>Корзина</div>
-		// 			<div className='payment-delivery'>Оплата и доставка</div>
-		// 		</div>
-		// 	</header>
-		// 	<GoodsList />
-		// 	{/* <Cart /> */}
-		// </div>
 	);
 }
 export default App;

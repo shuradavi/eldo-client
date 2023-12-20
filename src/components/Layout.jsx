@@ -9,9 +9,7 @@ const Layout = () => {
 					<Link to="/">Главная</Link>
 					<Link to="/cart">Корзина</Link>
 					<Link to="/payment">Оплата</Link>
-					<Link to="/auth">
-					{/* <img className='auth-img' alt='user' src={'../img/Img.jpg'} /> */}
-					</Link>
+					<Link to="/auth">Авторизация</Link>
 				</div>
 			</header>
 
