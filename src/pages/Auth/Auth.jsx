@@ -16,7 +16,7 @@ const Auth = () => {
 	return (
 		<div className='auth-page'>
 			<div className='auth-container'>
-				{Boolean(isAuth) ? null : null }
+				{Boolean(isAuth) ? <div> Auth </div> : null }
 				
 				{/* <div>Авторизация</div> */}
 				{/* <div>
