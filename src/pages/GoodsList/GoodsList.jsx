@@ -65,7 +65,6 @@ const GoodsList = () => {
 		return filterByBestOffer(g) && filterByName(g) && filterByCategory(g) && filterByPrice(g)
 	})
 	const onShowSizeChange = (_, pageSizeValue) => {
-		// console.log('current: ', currentPage, '; pageSize: ', pageSize);
 		setPaginationValue(prev => ({
 			...prev,
 			pageSize: pageSizeValue
