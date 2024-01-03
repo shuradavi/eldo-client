@@ -22,6 +22,7 @@ html, body {
 	background-color: #fff;
 }
 
+
 .auth-page {
 	min-height: calc(80vh);
 	width: 100%;
@@ -30,27 +31,19 @@ html, body {
 	flex-direction: column;
 }
 
-.reg-container {
-	margin-top: 20px;
+.auth-form-wrapper {
+	display: flex;
+	flex-direction: column;
+	margin-top: 50px;
+	gap: 5px;
 	width: 300px;
 	padding: 10px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	border: black 1px solid;
-	
 }
 
-.reg-content {
-	width: 80%;
-	margin-top: 10px;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
+
 
 .profile-container {
-	margin-top: 20px;
+	margin-top: 50px;
 	width: 300px;
 	padding: 10px;
 	display: flex;
@@ -61,13 +54,6 @@ html, body {
 }
 
 .profile-content {
-	margin-top: 10px;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
-
-.signIn-content {
 	margin-top: 10px;
 	display: flex;
 	flex-direction: column;
@@ -92,9 +78,87 @@ header {
 	height: 100%;
 }
 
-.cart {
-	height: 100%;
-	min-height: 80vh;
+.cart-wrapper {}
+
+.cart-header {
+	margin-top: 10px;
+	display: flex;
+	flex-direction: row;
+	width: 739px;
+}
+
+.cart-container {
+	margin-top: 20px;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(2, auto);
+}
+
+.cart-item-wrapper {
+	list-style: none;
+	width: 739px;
+	height: 157px;
+}
+
+.cart-item-content {
+	display: flex;
+	flex-direction: row;
+	padding: 18px 0;
+	/* gap: 50px; */
+}
+
+.cart-img-wrapper {
+	width: 120px;
+	height: 120px;
+}
+
+.cart-img {
+	width: 80%;
+	height: 80%;
+}
+
+.cart-middle {
+	width: 405px;
+	height: 117px;
+	margin: 4px 40px 0 18px;
+}
+
+.cart-right {
+	width: 120px;
+	height: 121px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.cart-item-finishprice {
+	color: green;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.cart-item-defprice {
+	color: rgb(95, 95, 95);
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.counter-wrapper {
+	display: flex;
+	flex-direction: row;
+	width: 120px;
+	height: 32px;
+}
+
+.cart-item-counter {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.cart-checkbox {
+	width: 31px;
 }
 
 .auth-img {

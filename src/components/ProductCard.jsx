@@ -1,7 +1,7 @@
 import React from 'react';
 import { Rate} from 'antd'
 import { useSelector } from 'react-redux';
-import { calcPriceWithDiscount } from '../../functions/functions';
+import { calcPriceWithDiscount } from '../functions/functions';
 
 const ProductCard = () => {
 	const product = useSelector(state => state.product.product)

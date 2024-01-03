@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch} from 'react-redux';
 import './App.css';
 import { fetchGoodsList } from './store/goodsSlice';
-import GoodsList from './pages/GoodsList/GoodsList';
-import Cart from './pages/Cart/Cart';
-import Payment from './pages/Payment/Payment';
-import Auth from './pages/Auth/Auth';
+import GoodsList from './pages/GoodsList';
+import Cart from './pages/Cart';
+import Auth from './pages/Auth';
 import {Route, Routes} from 'react-router-dom'
 import { Layout } from './components/Layout'
 
@@ -24,7 +23,7 @@ function App() {
 				<Route path='/' element={<Layout />}>
 					<Route path='/' element={<GoodsList />} />
 					<Route path='/cart' element={<Cart/>} />
-					<Route path='/payment' element={<Payment />} />
+					{/* <Route path='/payment' element={<Payment />} /> */}
 					<Route path='/auth' element={<Auth />} />
 				</Route>
 			</Routes>

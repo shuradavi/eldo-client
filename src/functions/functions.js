@@ -57,3 +57,19 @@ export const isEmptyObject = (obj) => {
     }
     return true;
 }
+
+export const sumOfGoodsInCart = (obj) => {
+	let sum = 0;
+	for (let key in obj) {
+		sum += obj[key]
+	}
+	return sum;
+}
+
+export const calcFinishPrice = (obj) => {
+	if (obj.hasOwnProperty("priceWithDiscount")) {
+		return obj["priceWithDiscount"]
+	} else {
+		return obj["price"]
+	}
+}

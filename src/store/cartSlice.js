@@ -38,6 +38,16 @@ const cartSlice = createSlice({
 			state.error = action.payload
 			console.log('Error: ', action.payload);
 		},
+		decreaseCount: (state, action) => {
+			let newHashMap = { ...state.hashMap }
+			newHashMap[action.payload] -= 1;
+			state.hashMap = newHashMap;
+		},
+		increaseCount: (state, action) => {
+			let newHashMap = { ...state.hashMap }
+			newHashMap[action.payload] += 1;
+			state.hashMap = newHashMap;
+		},
 		deleteFromCart: (state, action) => {
 			state.status = STATUS_MAP.fulfilled
 			console.log(action.payload);
@@ -45,13 +55,5 @@ const cartSlice = createSlice({
 	}
 })
 
-export const { addToCartStart, addToCartSuccess, addToCartFail, deleteFromCart } = cartSlice.actions
+export const { addToCartStart, addToCartSuccess, addToCartFail, deleteFromCart, decreaseCount, increaseCount } = cartSlice.actions
 export default cartSlice.reducer
-// export const addToCart = (id) => async (dispatch) => {
-// 	try {
-// 		dispatch(addToCart())
-// 		dispatch(addToCartSuccess())
-// 	} catch (error) {
-// 		dispatch(addToCartFail(error))
-// 	}
-// }

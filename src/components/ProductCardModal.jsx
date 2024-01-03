@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'antd'
-import ProductCard from '../ProductCard/ProductCard';
+import ProductCard from './ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleOffModalStatus } from '../../store/currentProductSlice';
+import { toggleOffModalStatus } from '../store/currentProductSlice';
 import { MinusOutlined, PlusOutlined} from '@ant-design/icons';
-import { addToCartSuccess } from '../../store/cartSlice';
-import { initialCountState } from '../../Params/Params';
+import { addToCartSuccess } from '../store/cartSlice';
+import { initialCountState } from '../Params/Params';
 
 const ProductCardModal = () => {
 	const product = useSelector(state => state.product.product)

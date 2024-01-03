@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Space } from 'antd';
 import { useDispatch } from 'react-redux';
-import { fetchProductById } from '../../store/currentProductSlice';
+import { fetchProductById } from '../store/currentProductSlice';
 
 const Goods = ({ product }) => {
 	const { name, price, currency, imgSource, priceWithDiscount, cashbackPercent, cashbackSize } = product;

@@ -11,6 +11,11 @@ export const AUTH_STATUS_MAP = {
 	500: 'This login already exists',
 }
 
+export const initialUserData = {
+	login: '',
+	password: '',
+}
+
 
 export const CATEGORIES_MAP = {
 	phones: 'телефоны',

@@ -8,8 +8,8 @@ const Layout = () => {
 				<div className='navbar'>
 					<Link className='link' to="/">Главная</Link>
 					<Link className='link' to="/cart">Корзина</Link>
-					<Link className='link' to="/payment">Оплата</Link>
 					<Link className='link' to="/auth">Авторизация</Link>
+					{/* <Link className='link' to="/payment">Оплата</Link> */}
 				</div>
 			</header>
 

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { initialFilterValue, paginationInitialValue } from '../../Params/Params';
+import { initialFilterValue, paginationInitialValue } from '../Params/Params';
 import { useSelector } from 'react-redux';
-import { optionsInitialization, initialPriceValue } from '../../Params/Params';
+import { optionsInitialization, initialPriceValue } from '../Params/Params';
 import { Checkbox, Select, Input, Pagination, Modal, Button } from 'antd';
-import CostFilter from '../CostFilter/CostFilter'
-import Goods from '../Goods/Goods'
-import ProductCardModal from '../ProductCardModal/ProductCardModal';
+import ProductCardModal from '../components/ProductCardModal';
+import CostFilter from '../components/CostFilter';
+import Goods from '../components/Goods';
 
 const GoodsList = () => {
 	const goods = useSelector(state => state.goods.goods)
