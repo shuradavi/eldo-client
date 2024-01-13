@@ -5,6 +5,7 @@ import { fetchGoodsList } from './store/goodsSlice';
 import GoodsList from './pages/GoodsList';
 import Cart from './pages/Cart';
 import Auth from './pages/Auth';
+import Payment from './pages/Payment';
 import {Route, Routes} from 'react-router-dom'
 import { Layout } from './components/Layout'
 
@@ -23,7 +24,7 @@ function App() {
 				<Route path='/' element={<Layout />}>
 					<Route path='/' element={<GoodsList />} />
 					<Route path='/cart' element={<Cart/>} />
-					{/* <Route path='/payment' element={<Payment />} /> */}
+					<Route path='/payment' element={<Payment />} />
 					<Route path='/auth' element={<Auth />} />
 				</Route>
 			</Routes>

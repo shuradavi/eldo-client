@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button, Space } from 'antd';
 import { useDispatch } from 'react-redux';
 import { fetchProductById } from '../store/currentProductSlice';
 
@@ -29,12 +28,6 @@ const Goods = ({ product }) => {
 				<div className='font-cashback color-cashback'>
 					<span>{`Кэшбэк: ${cashbackSize} ${currency}`}</span>
 				</div>}
-
-			<Space wrap>
-				<Button type='primary' danger>
-					Купить
-				</Button>
-			</Space>
 		</div>
 	);
 };

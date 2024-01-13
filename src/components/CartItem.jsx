@@ -30,10 +30,15 @@ const CartItem = ({ props}) => {
 				<div className='cart-img-wrapper'><img className='cart-img' alt={product["name"]} src={product["imgSource"]} /></div>
 				<div className='cart-middle'>{product['name']}</div>
 				<div className='cart-right'>
-					<div>
-						<div className='cart-item-finishprice'>{`Цена со скидкой: ${finishPrice} ${product["currency"]}`}</div>
-						<div className='cart-item-defprice'>{`без: ${defaultPrice} ${product["currency"]}`}</div>
-					</div>
+					{product.hasOwnProperty("priceWithDiscount") ?
+						<div>
+							<div className='cart-item-finishprice'>{`Цена со скидкой: ${finishPrice} ${product["currency"]}`}</div>
+							<div className='cart-item-defprice'>{`без: ${defaultPrice} ${product["currency"]}`}</div>
+						</div>
+						:
+						<div>
+							<div className='cart-item-finishprice'>{`Цена: ${defaultPrice} ${product["currency"]}`}</div>
+						</div>}
 					<div className='counter-wrapper'>
 						<Button style={{width: '2em'}} key='decrement' disabled={!Boolean(props[1] > 1)} onClick={decrement} icon={<MinusOutlined />} />
 						<div style={{ width: '30px' }} className='cart-item-counter'>{count}</div>
