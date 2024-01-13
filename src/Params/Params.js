@@ -6,6 +6,8 @@ export const hostUrl = {
 	logOut: 'http://localhost:4002/logout',
 }
 
+export const LABELS = ['Товар', 'Товара', 'Товаров']
+
 export const AUTH_STATUS_MAP = {
 	404: 'Invalid login/password',
 	500: 'This login already exists',

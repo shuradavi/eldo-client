@@ -81,17 +81,21 @@ header {
 .cart-wrapper {}
 
 .cart-header {
+	cursor: pointer;
 	margin-top: 10px;
 	display: flex;
 	flex-direction: row;
+	justify-content: end;
 	width: 739px;
 }
 
 .cart-container {
 	margin-top: 20px;
 	padding: 0;
-	display: grid;
-	grid-template-columns: repeat(2, auto);
+	display: flex;
+	flex-direction: column;
+	/* display: grid;
+	grid-template-columns: repeat(2, auto); */
 }
 
 .cart-item-wrapper {
@@ -104,7 +108,7 @@ header {
 	display: flex;
 	flex-direction: row;
 	padding: 18px 0;
-	/* gap: 50px; */
+	gap: 50px;	
 }
 
 .cart-img-wrapper {
@@ -157,8 +161,9 @@ header {
 	align-items: center;
 }
 
-.cart-checkbox {
-	width: 31px;
+.cart-trash {
+	display: flex;
+	align-items: center;
 }
 
 .auth-img {

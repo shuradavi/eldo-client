@@ -40,20 +40,32 @@ const cartSlice = createSlice({
 		},
 		decreaseCount: (state, action) => {
 			let newHashMap = { ...state.hashMap }
-			newHashMap[action.payload] -= 1;
-			state.hashMap = newHashMap;
+			if (newHashMap[action.payload] > 1) {
+				newHashMap[action.payload] -= 1;
+				state.hashMap = newHashMap;
+			} else {
+				delete newHashMap[action.payload];
+				state.hashMap = newHashMap;
+			}
 		},
 		increaseCount: (state, action) => {
 			let newHashMap = { ...state.hashMap }
 			newHashMap[action.payload] += 1;
 			state.hashMap = newHashMap;
 		},
-		deleteFromCart: (state, action) => {
+		deleteItemFromCart: (state, action) => {
 			state.status = STATUS_MAP.fulfilled
-			console.log(action.payload);
+			let newHashMap = { ...state.hashMap }
+			delete newHashMap[action.payload];
+			state.hashMap = newHashMap;
+		},
+		
+		deleteAllItemFromCart: (state) => {
+			state.status = STATUS_MAP.fulfilled;
+			state.hashMap = {};
 		}
 	}
 })
 
-export const { addToCartStart, addToCartSuccess, addToCartFail, deleteFromCart, decreaseCount, increaseCount } = cartSlice.actions
+export const { addToCartStart, addToCartSuccess, addToCartFail, deleteItemFromCart, deleteAllItemFromCart, decreaseCount, increaseCount } = cartSlice.actions
 export default cartSlice.reducer
