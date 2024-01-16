@@ -8,6 +8,7 @@ import Auth from './pages/Auth';
 import Payment from './pages/Payment';
 import {Route, Routes} from 'react-router-dom'
 import { Layout } from './components/Layout'
+import UserProfile from './components/UserProfile';
 
 
 
@@ -26,6 +27,7 @@ function App() {
 					<Route path='/cart' element={<Cart/>} />
 					<Route path='/payment' element={<Payment />} />
 					<Route path='/auth' element={<Auth />} />
+					<Route path='/account' element={<UserProfile />} />
 				</Route>
 			</Routes>
 		</>

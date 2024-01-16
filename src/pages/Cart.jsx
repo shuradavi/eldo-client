@@ -12,6 +12,7 @@ import { LABELS } from '../Params/Params';
 const Cart = () => {
 	const goods = useSelector(state => state.hashMap.hashMap);
 	const goodsList = useSelector(state => state.goods.goods)
+	const user = useSelector(state => state.user)
 	let defaultPrice = 0;
 	let finishPrice = 0;
 	let currency = '';
@@ -28,7 +29,6 @@ const Cart = () => {
 		defaultPrice += goodsList.filter((i) => i["id"] === key)[0]["price"] * value;
 		currency = goodsList.filter((i) => i["id"] === key)[0]["currency"]
 	}
-
 
 
 	return (
@@ -51,7 +51,7 @@ const Cart = () => {
 					<ul className='cart-container'>
 						{Object.entries(goods).map((item) => (
 							<>	
-								<CartItem props={item} key={item[0]} />
+								<CartItem key={item[0]} props={item}/>
 							</>
 						))}
 					</ul>
@@ -61,7 +61,8 @@ const Cart = () => {
 							colorBgBase: 'yellow',
 					}}}>
 						<div className='cart-order'>
-							<div><Button style={{width: '400px'}}><Link className='link' to="/payment">Перейти к оформлению</Link></Button></div>
+							<div>
+								<Button style={{ width: '400px' }}>{(Boolean(user.login) ? <Link className='link' to="/payment">Перейти к оформлению</Link> : <Link className='link' to="/auth">Авторизоваться</Link>)}</Button></div>
 							<div>
 								<div className='cart-order-content'>
 									<div>{`Всего: ${counterInCart} ${createLabel(counterInCart, LABELS)}`}</div>

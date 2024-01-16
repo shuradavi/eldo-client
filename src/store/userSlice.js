@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
-import { AUTH_STATUS_MAP, hostUrl } from '../Params/Params';
+import { hostUrl } from '../Params/Params';
 
 const initialState = {
 	login: null,
@@ -29,14 +29,10 @@ const userSlice = createSlice({
 			}
 		},
 		removeUser(state) {
-			if (Boolean(state.login)) {
 				state.login = null;
 				state.password = null;
 				state.status = null;
 				state.msg = null;
-			} else {
-				state.msg = 'Not logged in yet'
-			}
 		},
 		authFail(state, action) {
 			state.msg = action.payload.response.data

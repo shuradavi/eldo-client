@@ -1,24 +1,21 @@
 import React from 'react';
-import {Link, Outlet} from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { Link, Outlet } from 'react-router-dom';
+import UserProfile from './UserProfile';
+
 
 const Layout = () => {
+	const user = useSelector(state => state.user)
 	return (
 		<div className='App'>
 			<header>
 				<div className='navbar'>
 					<Link className='link' to="/">Главная</Link>
 					<Link className='link' to="/cart">Корзина</Link>
-					<Link className='link' to="/auth">Авторизация</Link>
-					{/* <Link className='link' to="/payment">Оплата</Link> */}
+					{Boolean(user.login) ? <Link className='link' to="/account">Выйти</Link> : <Link className='link' to="/auth">Авторизоваться</Link>}
 				</div>
 			</header>
-
 			<Outlet />	
-
-			{/* <footer>
-				<p>Создано нуждающимися для нуждающихся при поддержке поддерживающих
-					Санкт-Петербург 2023г.</p>
-			</footer> */}
 		</div>
 	);
 };

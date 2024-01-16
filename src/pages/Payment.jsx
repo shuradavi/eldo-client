@@ -1,7 +1,15 @@
 import React, {useState} from 'react';
 import { Button, Form, Input, InputNumber, Modal } from 'antd';
+import { useSelector } from 'react-redux';
   
 const Payment = () => {
+	const goods = useSelector(state => state.goods.goods)
+	const hashMapInCart = useSelector(state => state.hashMap.hashMap);
+	const orderedGoods = []
+	for (const [key, value] of Object.entries(hashMapInCart)) {
+		let newItem = { ...goods.filter(i => i["id"] === key)[0], count: value }
+		orderedGoods.push(newItem)
+	}
 	const [form] = Form.useForm();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const showModal = () => {
@@ -37,7 +45,7 @@ const Payment = () => {
 	};
 	
 		const onFinish = (values) => {
-			console.log(values);
+			console.log('Заказ успешно создан. Данные пользователя: ', values.user, 'список товаров: ', orderedGoods);
 	};
 	
 	
