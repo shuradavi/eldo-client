@@ -29,9 +29,11 @@ const Payment = () => {
 	const handleOk = () => {
 		form.resetFields();
 		setIsModalOpen(false);
+		navigate("/")
 	};
 	const handleCancel = () => {
-	  setIsModalOpen(false);
+		setIsModalOpen(false);
+		navigate("/")
 	};
 
 	const layout = {
@@ -58,8 +60,6 @@ const Payment = () => {
 		const onFinish = (values) => {
 			console.log('Заказ успешно создан. Данные пользователя: ', values.user, 'список товаров: ', orderedGoods);
 			dispatch(deleteAllItemFromCart())
-			navigate("/")
-
 	};
 	
 	
