@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { DeleteOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import { Button, ConfigProvider } from 'antd';
 import { isEmptyObject } from '../functions/functions';
@@ -9,10 +9,12 @@ import { deleteAllItemFromCart } from '../store/cartSlice';
 import { createLabel } from '../functions/functions';
 import { LABELS } from '../Params/Params';
 
+
 const Cart = () => {
 	const goods = useSelector(state => state.hashMap.hashMap);
 	const goodsList = useSelector(state => state.goods.goods)
 	const user = useSelector(state => state.user)
+	const navigate = useNavigate();
 	let defaultPrice = 0;
 	let finishPrice = 0;
 	let currency = '';
@@ -28,6 +30,10 @@ const Cart = () => {
 		counterInCart += value;
 		defaultPrice += goodsList.filter((i) => i["id"] === key)[0]["price"] * value;
 		currency = goodsList.filter((i) => i["id"] === key)[0]["currency"]
+	}
+
+	const placeOrder = () => {
+			navigate('/payment')
 	}
 
 
@@ -62,7 +68,9 @@ const Cart = () => {
 					}}}>
 						<div className='cart-order'>
 							<div>
-								<Button style={{ width: '400px' }}>{(Boolean(user.login) ? <Link className='link' to="/payment">Перейти к оформлению</Link> : <Link className='link' to="/auth">Авторизоваться</Link>)}</Button></div>
+								<Button onClick={placeOrder} style={{width: '400px'}}>Перейти к оформлению</Button>
+								
+							</div>
 							<div>
 								<div className='cart-order-content'>
 									<div>{`Всего: ${counterInCart} ${createLabel(counterInCart, LABELS)}`}</div>

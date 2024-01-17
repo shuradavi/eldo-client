@@ -61,7 +61,7 @@ const cartSlice = createSlice({
 		},
 		
 		deleteAllItemFromCart: (state) => {
-			state.status = STATUS_MAP.fulfilled;
+			state.status = null;
 			state.hashMap = {};
 		}
 	}

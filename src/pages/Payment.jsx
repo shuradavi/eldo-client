@@ -1,10 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button, Form, Input, InputNumber, Modal } from 'antd';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { deleteAllItemFromCart } from '../store/cartSlice';
   
 const Payment = () => {
+	const dispatch = useDispatch();
+	const cart = useSelector(state => state.hashMap)
 	const goods = useSelector(state => state.goods.goods)
 	const hashMapInCart = useSelector(state => state.hashMap.hashMap);
+	const user = useSelector(state => state.user)
+	const navigate = useNavigate();
+	useEffect(() => {
+		if (!Boolean(user.login)) {
+			navigate("/auth")
+		}
+	}, [])
 	const orderedGoods = []
 	for (const [key, value] of Object.entries(hashMapInCart)) {
 		let newItem = { ...goods.filter(i => i["id"] === key)[0], count: value }
@@ -46,6 +57,9 @@ const Payment = () => {
 	
 		const onFinish = (values) => {
 			console.log('Заказ успешно создан. Данные пользователя: ', values.user, 'список товаров: ', orderedGoods);
+			dispatch(deleteAllItemFromCart())
+			navigate("/")
+
 	};
 	
 	
