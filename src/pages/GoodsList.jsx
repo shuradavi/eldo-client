@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { initialFilterValue, paginationInitialValue } from '../Params/Params';
 import { useSelector } from 'react-redux';
 import { optionsInitialization, initialPriceValue } from '../Params/Params';
-import { Checkbox, Select, Input, Pagination, Modal, Button } from 'antd';
+import { Checkbox, Select, Input, Pagination, Spin} from 'antd';
 import ProductCardModal from '../components/ProductCardModal';
 import CostFilter from '../components/CostFilter';
 import Goods from '../components/Goods';
+import { STATUS_MAP } from '../Params/Params';
 
 const GoodsList = () => {
 	const goods = useSelector(state => state.goods.goods)
+	const fetchStatus = useSelector(state => state.goods.status)
 	const [inputCostValue, setInputCostValue] = useState(initialPriceValue);	
 	const [filtersValue, setFiltersValue] = useState(initialFilterValue)
 	const [paginationValues, setPaginationValue] = useState(paginationInitialValue)
@@ -34,16 +36,10 @@ const GoodsList = () => {
 	}
 
 	const filterByBestOffer = (g) => {
-		if (filtersValue["bestOffer"]) { // return filtersValue["bestOffer"] && g.hasDiscount
-			return g.hasDiscount
-		} else
-			return true;
+		return !filtersValue["bestOffer"] || g.hasDiscount
 	}
 	const filterByName = (g) => {
-		if (g["name"].toLowerCase().includes(filtersValue["name"].toLowerCase())) {
-			return true
-		} else
-			return false
+		return g["name"].toLowerCase().includes(filtersValue["name"].toLowerCase())
 	}
 	const filterByCategory = (g) => {
 		if (!filtersValue["category"].length) {
@@ -70,6 +66,18 @@ const GoodsList = () => {
 			pageSize: pageSizeValue
 		}))
 	}
+
+	const renderSwitch = (param) => {
+		switch (param) {
+			case STATUS_MAP.fulfilled:
+				return goodsListForRender.slice(indexOfFirstProduct, indexOfLastProduct).map((product) => <Goods product={product} key={product.id} />)
+			default:
+				return (<Spin tip="Loading" size="large">
+					<div className="content" />
+				</Spin>
+				);
+		}
+	}
 	
 	return (
 		<div className="goods-list">
@@ -93,10 +101,10 @@ const GoodsList = () => {
 				</div>
 				<div className='goods-list'>
 					<ProductCardModal />
-					{(!goodsListForRender.length) ? <div>По заданным параметрам товаров не найдено</div> : (goodsListForRender.slice(indexOfFirstProduct, indexOfLastProduct).map((product) => <Goods product={product} key={product.id} />))}
+					{(!goodsListForRender.length) ? renderSwitch(fetchStatus) : <div>По заданным параметрам товаров не найдено</div>}
 				</div>
 			</div>
-			<Pagination showSizeChanger onChange={onPageNumberHandler} pageSize={paginationValues.pageSize} current={paginationValues.currentPage} onShowSizeChange={onShowSizeChange} pageSizeOptions={paginationValues.pageSizeOptions} total={goodsListForRender.length} />
+			{(!goodsListForRender.length) && <Pagination showSizeChanger onChange={onPageNumberHandler} pageSize={paginationValues.pageSize} current={paginationValues.currentPage} onShowSizeChange={onShowSizeChange} pageSizeOptions={paginationValues.pageSizeOptions} total={goodsListForRender.length} />}
 		</div>
 	);
 };

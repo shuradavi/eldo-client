@@ -8,8 +8,7 @@ html, body {
 	font-family: 'Noto Sans', sans-serif;
 	margin: 0;
 	padding: 0;
-	
-	overflow: hidden;
+	overflow-x: hidden;
 }
 .App {
 	margin: 0;
