@@ -8,7 +8,7 @@ import UserProfile from '../components/UserProfile'
 const Auth = () => {
 	const state = useSelector(state => state.user)
 	const navigate = useNavigate();
-
+	
 	useEffect(() => {
 		if (Boolean(state.login)) {
 			navigate(-1)

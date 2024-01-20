@@ -4,7 +4,7 @@ import { getFilesList, saveFiles, deleteFile, downloadFile } from "../components
 
 const cartSlice = createSlice({
 	name: 'cart',
-	initialState: {
+	initialState: {  // оставить iS пустым объектом
 		hashMap: {},
 		status: null,
 		error: null,
@@ -14,9 +14,9 @@ const cartSlice = createSlice({
 			state.status = STATUS_MAP.pending
 		},
 		addToCartSuccess: (state, action) => {
-			if (state.status = STATUS_MAP.pending) {
+			if (state.status === STATUS_MAP.pending) {
 				state.status = STATUS_MAP.fulfilled
-				let newArr = [Number(Object.entries(action.payload)[0][0]), Number(Object.entries(action.payload)[0][1])]
+				let newArr = [Number(Object.entries(action.payload)[0][0]), Number(Object.entries(action.payload)[0][1])]  // убрать хуйню 0 0 0 0 0 0
 				if (state.hashMap.hasOwnProperty(newArr[0])) {
 					state.hashMap[newArr[0]] += newArr[1]
 					state.hashMap = {

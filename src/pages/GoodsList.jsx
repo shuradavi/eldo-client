@@ -11,7 +11,7 @@ import { STATUS_MAP } from '../Params/Params';
 const GoodsList = () => {
 	const goods = useSelector(state => state.goods.goods)
 	const fetchStatus = useSelector(state => state.goods.status)
-	const [inputCostValue, setInputCostValue] = useState(initialPriceValue);	
+	const [inputCostValue, setInputCostValue] = useState(initialPriceValue);	// useEffect(()=> {})
 	const [filtersValue, setFiltersValue] = useState(initialFilterValue)
 	const [paginationValues, setPaginationValue] = useState(paginationInitialValue)
 	const options = optionsInitialization();  // инициализируем список в селект/
@@ -26,10 +26,10 @@ const GoodsList = () => {
 	}
 
 	const onSelectHandler = (value) => {
-		setFiltersValue({ ...filtersValue, "category": value })
+		setFiltersValue({ ...filtersValue, category: value })
 	}
-	const onCheckedHandler = (e) => {
-		setFiltersValue({ ...filtersValue, "bestOffer": !filtersValue["bestOffer"] })
+	const onCheckedHandler = () => {
+		setFiltersValue({ ...filtersValue, "bestOffer": !filtersValue["bestOffer"] })  // убрать скобки
 	}
 	const inputHandler = (e) => {
 		setFiltersValue({ ...filtersValue, "name": e.target.value })

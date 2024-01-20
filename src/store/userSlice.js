@@ -29,10 +29,7 @@ const userSlice = createSlice({
 			}
 		},
 		removeUser(state) {
-				state.login = null;
-				state.password = null;
-				state.status = null;
-				state.msg = null;
+			state = initialState;
 		},
 		authFail(state, action) {
 			state.msg = action.payload.response.data

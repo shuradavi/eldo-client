@@ -21,7 +21,7 @@ const goodsSlice = createSlice({
 				state.status = STATUS_MAP.fulfilled
 				let newArr = [];
 				for (let i = 0; i < state.goods.length; i++) {
-					if (state.goods[i]["hasDiscount"] === true) {
+					if (state.goods[i]["hasDiscount"]) {
 						newArr.push({
 							...state.goods[i],
 							"priceWithDiscount": calcPriceWithDiscount(state.goods[i]),
@@ -32,6 +32,8 @@ const goodsSlice = createSlice({
 						"cashbackSize": Math.round(calcCashbackSize(state.goods[i]))
 					})
 				}
+
+				// вынести в санк с 23 по 34
 				state.goods = newArr;
 			}
 		},
