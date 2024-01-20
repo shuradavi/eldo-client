@@ -44,7 +44,6 @@ const currentProductSlice = createSlice({
 			console.log('Error: ', action.payload);
 		},
 		toggleOffModalStatus: (state) => {
-			console.log('Modal is Closed!');
 			state.isModalOpen = false;
 			state.product = {};
 		}

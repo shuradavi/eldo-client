@@ -101,10 +101,10 @@ const GoodsList = () => {
 				</div>
 				<div className='goods-list'>
 					<ProductCardModal />
-					{(!goodsListForRender.length) ? renderSwitch(fetchStatus) : <div>По заданным параметрам товаров не найдено</div>}
+					{(goodsListForRender.length) ? renderSwitch(fetchStatus) : <div>По заданным параметрам товаров не найдено</div>}
 				</div>
 			</div>
-			{(!goodsListForRender.length) && <Pagination showSizeChanger onChange={onPageNumberHandler} pageSize={paginationValues.pageSize} current={paginationValues.currentPage} onShowSizeChange={onShowSizeChange} pageSizeOptions={paginationValues.pageSizeOptions} total={goodsListForRender.length} />}
+			{(!goodsListForRender.length) || <Pagination showSizeChanger onChange={onPageNumberHandler} pageSize={paginationValues.pageSize} current={paginationValues.currentPage} onShowSizeChange={onShowSizeChange} pageSizeOptions={paginationValues.pageSizeOptions} total={goodsListForRender.length} />}
 		</div>
 	);
 };

@@ -17,8 +17,6 @@ const cartSlice = createSlice({
 			if (state.status = STATUS_MAP.pending) {
 				state.status = STATUS_MAP.fulfilled
 				let newArr = [Number(Object.entries(action.payload)[0][0]), Number(Object.entries(action.payload)[0][1])]
-				console.log('newArr: ', newArr);
-
 				if (state.hashMap.hasOwnProperty(newArr[0])) {
 					state.hashMap[newArr[0]] += newArr[1]
 					state.hashMap = {
@@ -31,7 +29,6 @@ const cartSlice = createSlice({
 					}
 				}
 			}
-			console.log('hashMap: ', state.hashMap);
 		},
 		addToCartFail: (state, action) => {
 			state.status = STATUS_MAP.rejected
