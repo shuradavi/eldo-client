@@ -5,51 +5,52 @@ import { calcPriceWithDiscount } from '../functions/functions';
 
 const ProductCard = () => {
 	const product = useSelector(state => state.product.product)
+	const { name, imgSource, price, currency, cashbackSize, cashbackPercent, description, country, guarantee, rating } = product;
 		return (
 			<div>
-				<img className='img-item' alt={product["name"]} src={product["imgSource"]} />
-				<h2 className='product-card-title'>{product["name"]}</h2>
+				<img className='img-item' alt={name} src={imgSource} />
+				<h2 className='product-card-title'>{name}</h2>
 				<div className='product-card-price'>
 					<span className='product-card-title'>Стоимость:</span>
-					{product.hasOwnProperty(["priceWithDiscount"])
+					{product.hasOwnProperty("priceWithDiscount")
 						?
 						<>
-							<span className='font-price-before color-price-before'>{`${product["price"]} ${product["currency"]}`}</span>
+							<span className='font-price-before color-price-before'>{`${price} ${currency}`}</span>
 							<span>/</span>
 							<span className='font-price-discount color-price-discount font-default-price'>{calcPriceWithDiscount(product)}</span>
-							<span className='font-price-discount font-price font-default-price'>{product["currency"]}</span>	
+							<span className='font-price-discount font-price font-default-price'>{currency}</span>	
 						</>
 						:
 						<>
-							<span className='font-price-discount color-price font-default-price'>{product["price"]}</span>
-							<span className='font-price-discount font-default-price'>{product["currency"]}</span>
+							<span className='font-price-discount color-price font-default-price'>{price}</span>
+							<span className='font-price-discount font-default-price'>{currency}</span>
 						</>
 						 }
 				</div>
-				{(product["cashbackPercent"] > 0) &&
+				{(cashbackPercent > 0) &&
 					<div className='product-cashback cashback'>
 						<span className='product-card-title color-cashback'>Кэшбэк:</span>
-						<span className='color-cashback'>{`${product["cashbackSize"]} ${product["currency"]}`}</span>
+						<span className='color-cashback'>{`${cashbackSize} ${currency}`}</span>
 					</div>}
 				<div className='product-description'>
 					<span className='product-card-title'>Описание: </span>
-					<span>{product["description"]}</span>
+					<span>{description}</span>
 				</div>
 				<div className='product-country'>
 					<span className='product-card-title'>Страна производитель: </span>
-					<span>{product["country"]}</span>
+					<span>{country}</span>
 				</div>
 				<div className='product-guarantee'>
 					<span className='product-card-title'>Срок гарантии: </span>
-					{Boolean(product["guarantee"]) && <span>{`${product["guarantee"]["period"]} ${product["guarantee"]["unit"]}`}</span>}
+					{Boolean(guarantee) && <span>{`${guarantee.period} ${guarantee.unit}`}</span>}
 				</div>
 				<div className='product-rate'>
 					<div className='product-card-title'>Рейтинг: </div>
-					{(product["rating"] > 0)
+					{(rating > 0)
 						?
 						<>
-							<div>{product["rating"]}</div>
-							<Rate disabled={true} allowHalf value={product["rating"]} />
+							<div>{rating}</div>
+							<Rate disabled={true} allowHalf value={rating} />
 						</>
 						:
 						<div>слишком мало отзывов</div>}

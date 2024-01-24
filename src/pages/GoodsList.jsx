@@ -29,31 +29,31 @@ const GoodsList = () => {
 		setFiltersValue({ ...filtersValue, category: value })
 	}
 	const onCheckedHandler = () => {
-		setFiltersValue({ ...filtersValue, "bestOffer": !filtersValue["bestOffer"] })  // убрать скобки
+		setFiltersValue({ ...filtersValue, bestOffer: !filtersValue.bestOffer }) 
 	}
 	const inputHandler = (e) => {
-		setFiltersValue({ ...filtersValue, "name": e.target.value })
+		setFiltersValue({ ...filtersValue, name: e.target.value })
 	}
 
 	const filterByBestOffer = (g) => {
-		return !filtersValue["bestOffer"] || g.hasDiscount
+		return !filtersValue.bestOffer || g.hasDiscount
 	}
 	const filterByName = (g) => {
-		return g["name"].toLowerCase().includes(filtersValue["name"].toLowerCase())
+		return g.name.toLowerCase().includes(filtersValue.name.toLowerCase())
 	}
 	const filterByCategory = (g) => {
-		if (!filtersValue["category"].length) {
+		if (!filtersValue.category.length) {
 			return true
-		} else if (filtersValue["category"].join('-').toLowerCase().includes(g["category"].toLowerCase())) {
+		} else if (filtersValue.category.join('-').toLowerCase().includes(g.category.toLowerCase())) {
 			return true
 		} else
 			return false
 	}
 	const filterByPrice = (g) => {
 		if (g.hasOwnProperty("priceWithDiscount")) {
-			return (inputCostValue[0] < g["priceWithDiscount"] && g["priceWithDiscount"] < inputCostValue[1])
-		} else 
-			return (inputCostValue[0] < g["price"] && g["price"] < inputCostValue[1])
+			return (inputCostValue[0] < g.priceWithDiscount && g.priceWithDiscount < inputCostValue[1])
+		} else
+			return (inputCostValue[0] < g.price && g.price < inputCostValue[1])
 	}
 	const indexOfLastProduct = (paginationValues.currentPage * paginationValues.pageSize);
 	const indexOfFirstProduct = (paginationValues.currentPage * paginationValues.pageSize - paginationValues.pageSize) 

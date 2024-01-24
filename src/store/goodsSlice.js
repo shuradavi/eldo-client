@@ -19,22 +19,6 @@ const goodsSlice = createSlice({
 			if (state.status = STATUS_MAP.pending) {
 				state.goods = action.payload
 				state.status = STATUS_MAP.fulfilled
-				let newArr = [];
-				for (let i = 0; i < state.goods.length; i++) {
-					if (state.goods[i]["hasDiscount"]) {
-						newArr.push({
-							...state.goods[i],
-							"priceWithDiscount": calcPriceWithDiscount(state.goods[i]),
-							"cashbackSize": Math.round(calcCashbackSize(state.goods[i]))
-						})
-					} else newArr.push({
-						...state.goods[i],
-						"cashbackSize": Math.round(calcCashbackSize(state.goods[i]))
-					})
-				}
-
-				// вынести в санк с 23 по 34
-				state.goods = newArr;
 			}
 		},
 		fetchFail: (state, action) => {
@@ -52,8 +36,24 @@ export default goodsSlice.reducer
 export const fetchGoodsList = () => async (dispatch) => {
 	try {
 		dispatch(fetchStart())
-		const response = await axios.get(hostUrl.listItems)
-		dispatch(fetchSuccess(response.data))
+		const response = await axios.get(hostUrl.listItems);
+		let result = [];
+		for (let i = 0; i < response.data.length; i++) {
+			if (response.data[i].hasDiscount) {
+				result.push({
+					...response.data[i],
+					priceWithDiscount: calcPriceWithDiscount(response.data[i]),
+					cashbackSize: Math.round(calcCashbackSize(response.data[i]))
+				})
+			} else {
+				result.push({
+					...response.data[i],
+					priceWithDiscount: response.data[i].price,
+					cashbackSize: Math.round(calcCashbackSize(response.data[i]))
+				})
+			}
+		}
+		dispatch(fetchSuccess(result))
 	} catch (error) {
 		dispatch(fetchFail(error))
 	}

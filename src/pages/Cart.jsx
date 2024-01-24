@@ -24,12 +24,12 @@ const Cart = () => {
 	}
 	let counterInCart = 0;
 	for (const [key, value] of Object.entries(goods)) {
-		if (goodsList.filter((i) => i["id"] === key)[0]["priceWithDiscount"]) {
-			finishPrice += goodsList.filter((i) => i["id"] === key)[0]["priceWithDiscount"] * value;
+		if (goodsList.filter((i) => i.id === key)[0].priceWithDiscount) {
+			finishPrice += goodsList.filter((i) => i.id === key)[0].priceWithDiscount * value;
 		}
 		counterInCart += value;
-		defaultPrice += goodsList.filter((i) => i["id"] === key)[0]["price"] * value;
-		currency = goodsList.filter((i) => i["id"] === key)[0]["currency"]
+		defaultPrice += goodsList.filter((i) => i.id === key)[0].price * value;
+		currency = goodsList.filter((i) => i.id === key)[0].currency
 	}
 
 	const placeOrder = () => {

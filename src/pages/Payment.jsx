@@ -18,7 +18,7 @@ const Payment = () => {
 	}, [])
 	const orderedGoods = []
 	for (const [key, value] of Object.entries(hashMapInCart)) {
-		let newItem = { ...goods.filter(i => i["id"] === key)[0], count: value }
+		let newItem = { ...goods.filter(i => i.id === key)[0], count: value }
 		orderedGoods.push(newItem)
 	}
 	const [form] = Form.useForm();

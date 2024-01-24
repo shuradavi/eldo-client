@@ -4,7 +4,7 @@ import ProductCard from './ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleOffModalStatus } from '../store/currentProductSlice';
 import { MinusOutlined, PlusOutlined} from '@ant-design/icons';
-import { addToCartSuccess } from '../store/cartSlice';
+import { addToCart } from '../store/cartSlice';
 import { initialCountState } from '../Params/Params';
 
 const ProductCardModal = () => {
@@ -17,7 +17,7 @@ const ProductCardModal = () => {
 	})
 	const dispatch = useDispatch();
 	const handleAddToCart = () => {
-		dispatch(addToCartSuccess({[product['id']]: count }))
+		dispatch(addToCart({...product.id, ...count})) // Посмотреть метод обработки hashMap, достать ключ и значение. 
 		dispatch(toggleOffModalStatus())
 		setCount(initialCountState)
 	};

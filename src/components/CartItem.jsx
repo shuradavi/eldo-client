@@ -9,35 +9,35 @@ import {increaseCount, decreaseCount, deleteItemFromCart } from '../store/cartSl
 const CartItem = ({ props}) => {	
 	const goods = useSelector(state => state.goods.goods)
 	const dispatch = useDispatch();
-	const product = goods.filter((i) => i["id"] === props[0])[0]
+	const product = goods.filter((i) => i.id === props[0])[0]
 	const count = props[1];
 	let finishPrice = calcFinishPrice(product) * count
-	let defaultPrice = product["price"] * count
+	let defaultPrice = product.price * count
 
 	const deleteItem = () => {
 		dispatch(deleteItemFromCart(props[0][0]))
 	}
 	const decrement = () => {
-		dispatch(decreaseCount(product["id"]))
+		dispatch(decreaseCount(product.id))
 	}
 	const increment = () => {
-		dispatch(increaseCount(product["id"]))
+		dispatch(increaseCount(product.id))
 	}
 	
 	return (
 		<li className='cart-item-wrapper'>
 			<div className='cart-item-content'>
-				<div className='cart-img-wrapper'><img className='cart-img' alt={product["name"]} src={product["imgSource"]} /></div>
-				<div className='cart-middle'>{product['name']}</div>
+				<div className='cart-img-wrapper'><img className='cart-img' alt={product.name} src={product.imgSource} /></div>
+				<div className='cart-middle'>{product.name}</div>
 				<div className='cart-right'>
-					{product.hasOwnProperty("priceWithDiscount") ?
+					{product.hasOwnProperty(priceWithDiscount) ?
 						<div>
-							<div className='cart-item-finishprice'>{`Цена со скидкой: ${finishPrice} ${product["currency"]}`}</div>
-							<div className='cart-item-defprice'>{`без: ${defaultPrice} ${product["currency"]}`}</div>
+							<div className='cart-item-finishprice'>{`Цена со скидкой: ${finishPrice} ${product.currency}`}</div>
+							<div className='cart-item-defprice'>{`без: ${defaultPrice} ${product.currency}`}</div>
 						</div>
 						:
 						<div>
-							<div className='cart-item-finishprice'>{`Цена: ${defaultPrice} ${product["currency"]}`}</div>
+							<div className='cart-item-finishprice'>{`Цена: ${defaultPrice} ${product.currency}`}</div>
 						</div>}
 					<div className='counter-wrapper'>
 						<Button style={{width: '2em'}} key='decrement' disabled={!Boolean(props[1] > 1)} onClick={decrement} icon={<MinusOutlined />} />

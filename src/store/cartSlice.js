@@ -1,39 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { STATUS_MAP } from "../Params/Params";
-import { getFilesList, saveFiles, deleteFile, downloadFile } from "../components/API/cart";
+
+const initialState = {};
 
 const cartSlice = createSlice({
 	name: 'cart',
-	initialState: {  // оставить iS пустым объектом
-		hashMap: {},
-		status: null,
-		error: null,
-	},
+	initialState,
 	reducers: {
-		addToCartStart: (state) => {
-			state.status = STATUS_MAP.pending
-		},
-		addToCartSuccess: (state, action) => {
-			if (state.status === STATUS_MAP.pending) {
-				state.status = STATUS_MAP.fulfilled
-				let newArr = [Number(Object.entries(action.payload)[0][0]), Number(Object.entries(action.payload)[0][1])]  // убрать хуйню 0 0 0 0 0 0
-				if (state.hashMap.hasOwnProperty(newArr[0])) {
-					state.hashMap[newArr[0]] += newArr[1]
-					state.hashMap = {
-						...state.hashMap
-					}
-				} else {
-					state.hashMap = {
-						...state.hashMap,
-						...action.payload
-					}
-				}
-			}
-		},
-		addToCartFail: (state, action) => {
-			state.status = STATUS_MAP.rejected
-			state.error = action.payload
-			console.log('Error: ', action.payload);
+		addToCart: (state, action) => {
+			// console.log('state: ', state, 'id: ', ...action.payload);
+			const { id, count } = action.payload
+			console.log('id:', id);
+			console.log('count:', count);
+			// if (state.hasOwnProperty(action.payload)) {
+			// 	state.action.payload += count
+			// 	return state;
+			// } else {
+			// 	state = {
+			// 		...state,
+			// 		[action.payload]: count
+			// 	}
+			// 	return state
+			// }
 		},
 		decreaseCount: (state, action) => {
 			let newHashMap = { ...state.hashMap }
@@ -51,7 +38,6 @@ const cartSlice = createSlice({
 			state.hashMap = newHashMap;
 		},
 		deleteItemFromCart: (state, action) => {
-			state.status = STATUS_MAP.fulfilled
 			let newHashMap = { ...state.hashMap }
 			delete newHashMap[action.payload];
 			state.hashMap = newHashMap;
@@ -64,5 +50,7 @@ const cartSlice = createSlice({
 	}
 })
 
-export const { addToCartStart, addToCartSuccess, addToCartFail, deleteItemFromCart, deleteAllItemFromCart, decreaseCount, increaseCount } = cartSlice.actions
+export const { addToCart, deleteItemFromCart, deleteAllItemFromCart, decreaseCount, increaseCount } = cartSlice.actions
 export default cartSlice.reducer
+
+// export const addToCart = ({id, count})

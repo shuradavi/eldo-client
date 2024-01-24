@@ -16,29 +16,40 @@ import currentProductSlice from './currentProductSlice'
 import cartSlice from './cartSlice'
 import userSlice from './userSlice'
 
-const rootReducer = combineReducers({
-	goods: goodsSlice,
-	product: currentProductSlice,
-	hashMap: cartSlice,
-	user: userSlice,
-})
+// const rootReducer = combineReducers({
+// 	goods: goodsSlice,
+// 	product: currentProductSlice,
+// 	hashMap: cartSlice,
+// 	user: userSlice,
+// })
 
-const persistConfig = {
-	key: 'root',
-	storage,
-}
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+// const persistConfig = {
+// 	key: 'root',
+// 	storage,
+// }
+
+// const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+// const store = configureStore({
+// 	reducer: persistedReducer,
+// 	middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({
+//       serializableCheck: {
+//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+//       },
+//     }),
+// })
 
 const store = configureStore({
-	reducer: persistedReducer,
-	middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
-})
+	reducer: {
+		goods: goodsSlice,
+		product: currentProductSlice,
+		hashMap: cartSlice,
+		user: userSlice,
+  },
+  })
 
-export const persistor = persistStore(store);
+// export const persistor = persistStore(store);
 export default store;

@@ -2,18 +2,18 @@ export const getMinAndMaxPrice = (goodsList) => {
 	let result = []
 	let newArr = [...goodsList]
 	newArr = newArr.sort((a, b) => {
-		return a["price"] - b["price"];
+		return a.price - b.price;
 	})
-	result = [newArr.at(0)["price"], newArr.at(-1)["price"]]
-	return result
+	result = [newArr.at(0).price, newArr.at(-1).price]
+	return result;
 }
 
 export const calcPriceWithDiscount = (product) => {
-	return Math.round(product["price"] * ((100 - product["discountPercent"]) / 100))
+	return Math.round(product.price * ((100 - product.discountPercent) / 100))
 }
 
 export const calcCashbackSize = (product) => {
-	return product["hasDiscount"] ? (calcPriceWithDiscount(product) * product["cashbackPercent"] / 100) : (product["price"] * product["cashbackPercent"] / 100)
+	return product.hasDiscount ? (calcPriceWithDiscount(product) * product.cashbackPercent / 100) : (product.price * product.cashbackPercent / 100)
 }
 
 function decimalAdjust(type, value, exp) {
@@ -40,12 +40,12 @@ Math.round10 = function (value, exp) {
   };
 
 export const calcRating = (product) => {
-	if (product["reviews"].length > 0) {
+	if (product.reviews.length > 0) {
 		let result = 0;
-		for (let i = 0; i < product["reviews"].length; i++) {
-			result += product["reviews"][i]["rate"]
+		for (let i = 0; i < product.reviews.length; i++) {
+			result += product.reviews[i].rate
 		}
-		return Math.round10((result / (product["reviews"].length)), -1)
+		return Math.round10((result / (product.reviews.length)), -1)
 	} else return 0
 }
 
@@ -67,10 +67,10 @@ export const sumOfGoodsInCart = (obj) => {
 }
 
 export const calcFinishPrice = (obj) => {
-	if (obj.hasOwnProperty("priceWithDiscount")) {
-		return obj["priceWithDiscount"]
+	if (obj.hasOwnProperty(priceWithDiscount)) {
+		return obj.priceWithDiscount
 	} else {
-		return obj["price"]
+		return obj.price
 	}
 }
 

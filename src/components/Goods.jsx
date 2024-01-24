@@ -6,7 +6,7 @@ const Goods = ({ product }) => {
 	const { name, price, currency, imgSource, priceWithDiscount, cashbackPercent, cashbackSize } = product;
 	const dispatch = useDispatch();
 	const onProductClickHandler = async () => {
-		dispatch(fetchProductById(product['id']))
+		dispatch(fetchProductById(product.id))
 	};
 	return (
 		<div className='goods-item' onClick={onProductClickHandler}>
@@ -17,7 +17,7 @@ const Goods = ({ product }) => {
 				{name}
 			</div>
 			<div className='product-price-container'>
-				{product.hasOwnProperty("priceWithDiscount") ? 
+				{product.hasOwnProperty(priceWithDiscount) ? 
 				<div>
 					<div className='font-price-before color-price-before'>{`${price} ${currency}`}</div>
 					<div className='font-price-discount color-price-discount'>{`${priceWithDiscount} ${currency}`}</div>
