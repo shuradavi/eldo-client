@@ -1,3 +1,11 @@
+export const hasItemInCart = (id, state) => {
+	if (!isEmptyObject(state)) {
+		for (let key in state) {
+			if (key === id) return true;
+		}
+	} else return false;
+}
+
 export const getMinAndMaxPrice = (goodsList) => {
 	let result = []
 	let newArr = [...goodsList]
@@ -64,14 +72,6 @@ export const sumOfGoodsInCart = (obj) => {
 		sum += obj[key]
 	}
 	return sum;
-}
-
-export const calcFinishPrice = (obj) => {
-	if (obj.hasOwnProperty(priceWithDiscount)) {
-		return obj.priceWithDiscount
-	} else {
-		return obj.price
-	}
 }
 
 export const createLabel = (number, titles) => {

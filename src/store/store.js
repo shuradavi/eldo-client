@@ -46,7 +46,7 @@ const store = configureStore({
 	reducer: {
 		goods: goodsSlice,
 		product: currentProductSlice,
-		hashMap: cartSlice,
+		cart: cartSlice,
 		user: userSlice,
   },
   })

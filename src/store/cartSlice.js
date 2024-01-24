@@ -1,56 +1,41 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {hasItemInCart} from "../functions/functions"
 
-const initialState = {};
+const initialState = {
+};
 
 const cartSlice = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
-		addToCart: (state, action) => {
-			// console.log('state: ', state, 'id: ', ...action.payload);
-			const { id, count } = action.payload
-			console.log('id:', id);
-			console.log('count:', count);
-			// if (state.hasOwnProperty(action.payload)) {
-			// 	state.action.payload += count
-			// 	return state;
-			// } else {
-			// 	state = {
-			// 		...state,
-			// 		[action.payload]: count
-			// 	}
-			// 	return state
-			// }
-		},
-		decreaseCount: (state, action) => {
-			let newHashMap = { ...state.hashMap }
-			if (newHashMap[action.payload] > 1) {
-				newHashMap[action.payload] -= 1;
-				state.hashMap = newHashMap;
-			} else {
-				delete newHashMap[action.payload];
-				state.hashMap = newHashMap;
+		addNewItemToCart: (state, action) => {
+			state = {
+				...state, 
+				...action.payload
 			}
+			return state;
 		},
-		increaseCount: (state, action) => {
-			let newHashMap = { ...state.hashMap }
-			newHashMap[action.payload] += 1;
-			state.hashMap = newHashMap;
+
+		decrement: (state, action) => {
+			state[action.payload] -= 1;
 		},
+
+		increment: (state, action) => {
+			state[action.payload] += 1;
+		},
+
 		deleteItemFromCart: (state, action) => {
-			let newHashMap = { ...state.hashMap }
-			delete newHashMap[action.payload];
-			state.hashMap = newHashMap;
+			delete state[action.payload]
 		},
 		
 		deleteAllItemFromCart: (state) => {
-			state.status = null;
-			state.hashMap = {};
-		}
+			state = initialState;
+			return state;
+		},
 	}
 })
 
-export const { addToCart, deleteItemFromCart, deleteAllItemFromCart, decreaseCount, increaseCount } = cartSlice.actions
+export const { addNewItemToCart, deleteItemFromCart, deleteAllItemFromCart, decrement, increment } = cartSlice.actions
 export default cartSlice.reducer
 
-// export const addToCart = ({id, count})
+

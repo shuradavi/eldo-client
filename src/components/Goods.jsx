@@ -17,7 +17,7 @@ const Goods = ({ product }) => {
 				{name}
 			</div>
 			<div className='product-price-container'>
-				{product.hasOwnProperty(priceWithDiscount) ? 
+				{product.hasDiscount ? 
 				<div>
 					<div className='font-price-before color-price-before'>{`${price} ${currency}`}</div>
 					<div className='font-price-discount color-price-discount'>{`${priceWithDiscount} ${currency}`}</div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { initialFilterValue, paginationInitialValue } from '../Params/Params';
 import { useSelector } from 'react-redux';
 import { optionsInitialization, initialPriceValue } from '../Params/Params';
@@ -15,6 +15,15 @@ const GoodsList = () => {
 	const [filtersValue, setFiltersValue] = useState(initialFilterValue)
 	const [paginationValues, setPaginationValue] = useState(paginationInitialValue)
 	const options = optionsInitialization();  // инициализируем список в селект/
+
+	useEffect(() => {
+		setPaginationValue(prev => {
+			return {
+				...prev,
+				currentPage: paginationInitialValue.currentPage
+			}
+		})
+	}, [filtersValue, inputCostValue])
 	
 	const onPageNumberHandler = (value) => {
 		setPaginationValue((prev) => {
@@ -88,6 +97,7 @@ const GoodsList = () => {
 							className='category-select'
 							mode="tags"
 							placeholder="Выберите категорию"
+							showSearch={false}
 							onChange={onSelectHandler}
 							options={options}
 						/>

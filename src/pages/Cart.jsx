@@ -11,7 +11,7 @@ import { LABELS } from '../Params/Params';
 
 
 const Cart = () => {
-	const goods = useSelector(state => state.hashMap.hashMap);
+	const goodsInCart = useSelector(state => state.cart);
 	const goodsList = useSelector(state => state.goods.goods)
 	const user = useSelector(state => state.user)
 	const navigate = useNavigate();
@@ -23,7 +23,7 @@ const Cart = () => {
 		dispatch(deleteAllItemFromCart())
 	}
 	let counterInCart = 0;
-	for (const [key, value] of Object.entries(goods)) {
+	for (const [key, value] of Object.entries(goodsInCart)) {
 		if (goodsList.filter((i) => i.id === key)[0].priceWithDiscount) {
 			finishPrice += goodsList.filter((i) => i.id === key)[0].priceWithDiscount * value;
 		}
@@ -43,7 +43,7 @@ const Cart = () => {
 				<ShoppingCartOutlined style={{fontSize: '32px', alignItems: 'end'}}/>
 				<div className='cart-title'>Корзина</div>
 				<div style={{ display: 'flex', alignItems: 'flex-end' }}>
-					{!isEmptyObject(goods) ? <>{`${counterInCart} ${createLabel(counterInCart, LABELS)}`}</> : <>Здесь ничего нет</>}
+					{!isEmptyObject(goodsInCart) ? <>{`${counterInCart} ${createLabel(counterInCart, LABELS)}`}</> : <>Здесь ничего нет</>}
 				
 				</div>
 			</div>
@@ -52,10 +52,10 @@ const Cart = () => {
 				<div className='cart-trash'><DeleteOutlined style={{fontSize: '20px', color: 'gray', marginLeft: '5px'}}/></div>
 			</div>
 			<hr/>
-			{!isEmptyObject(goods) ?
+			{!isEmptyObject(goodsInCart) ?
 				(<>
 					<ul className='cart-container'>
-						{Object.entries(goods).map((item) => (
+						{Object.entries(goodsInCart).map((item) => (
 							<>	
 								<CartItem key={item[0]} props={item}/>
 							</>
