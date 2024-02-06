@@ -5,7 +5,6 @@ import { Link, Outlet } from 'react-router-dom';
 
 const Layout = () => {
 	const user = useSelector(state => state.user);
-	const notification = useSelector(state => state.notification);
 	
 	return (
 		<div className='App'>

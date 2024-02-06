@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { InputNumber, Space } from 'antd';
 
 const CostFilter = ({inputCostValue, setInputCostValue }) => {

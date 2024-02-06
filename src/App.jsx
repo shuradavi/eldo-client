@@ -11,16 +11,12 @@ import { Layout } from './components/Layout'
 import UserProfile from './components/UserProfile';
 import { ReactNotifications } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
-import { setStatus } from './store/notifi-cationSlice';
-import store from './store/store';
 
 function App() {
 	const dispatch = useDispatch()
-	const notification = useSelector(state => state.notification.msg);
 	useEffect(() => {
 		dispatch(fetchGoodsList())
-	}, [notification])
-
+	}, [])
 
 	return (
 		<>
