@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { DeleteOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import { Button, ConfigProvider } from 'antd';
 import { isEmptyObject } from '../functions/functions';
 import CartItem from '../components/CartItem';
-import { deleteAllItemFromCart } from '../store/cartSlice';
+import { deleteAllItemFromCart, toggleStatusOn } from '../store/cartSlice';
 import { createLabel } from '../functions/functions';
 import { LABELS } from '../Params/Params';
 
 
 const Cart = () => {
-	const goodsInCart = useSelector(state => state.cart);
+	const goodsInCart = useSelector(state => state.cart.cart);
 	const goodsList = useSelector(state => state.goods.goods)
 	const user = useSelector(state => state.user)
 	const navigate = useNavigate();
@@ -33,9 +33,13 @@ const Cart = () => {
 	}
 
 	const placeOrder = () => {
-			navigate('/payment')
+		dispatch(toggleStatusOn())
+		if (Boolean(user.login)) {
+			navigate('/orderpage')
+		} else {
+			navigate('/auth')
+		}
 	}
-
 
 	return (
 		<div>
@@ -44,7 +48,6 @@ const Cart = () => {
 				<div className='cart-title'>Корзина</div>
 				<div style={{ display: 'flex', alignItems: 'flex-end' }}>
 					{!isEmptyObject(goodsInCart) ? <>{`${counterInCart} ${createLabel(counterInCart, LABELS)}`}</> : <>Здесь ничего нет</>}
-				
 				</div>
 			</div>
 			<div className='cart-header-button' onClick={deleteAllGoods}>
@@ -55,11 +58,9 @@ const Cart = () => {
 			{!isEmptyObject(goodsInCart) ?
 				(<>
 					<ul className='cart-container'>
-						{Object.entries(goodsInCart).map((item) => (
-							<>	
-								<CartItem key={item[0]} props={item}/>
-							</>
-						))}
+						{Object.entries(goodsInCart).map(item => 
+							<CartItem props={item} key={item[0]}/>
+						)}
 					</ul>
 					<hr />
 					<ConfigProvider theme={{
@@ -69,7 +70,6 @@ const Cart = () => {
 						<div className='cart-order'>
 							<div>
 								<Button onClick={placeOrder} style={{width: '400px'}}>Перейти к оформлению</Button>
-								
 							</div>
 							<div>
 								<div className='cart-order-content'>
@@ -87,7 +87,6 @@ const Cart = () => {
 							</div>
 						</div>	
 					</ConfigProvider>
-					
 				</>
 				)
 				:

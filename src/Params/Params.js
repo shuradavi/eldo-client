@@ -20,6 +20,7 @@ export const initialUserData = {
 
 
 export const CATEGORIES_MAP = {
+	all: 'Все',
 	phones: 'телефоны',
 	computers: 'компьютеры',
 	kitchen: 'кухня',
@@ -58,5 +59,10 @@ export const paginationInitialValue = {
 	pageSize: 5,
 	currentPage: 1,
 	pageSizeOptions: [3, 5, 10],
+}
+
+export const typeOfNotification = {
+	error: 'danger',
+	success: 'success'
 }
 

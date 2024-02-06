@@ -1,39 +1,30 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { Button, Form, Input, InputNumber, Modal } from 'antd';
 import { useSelector, useDispatch} from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { deleteAllItemFromCart } from '../store/cartSlice';
   
-const Payment = () => {
+const OrderPage = () => {
 	const dispatch = useDispatch();
-	const cart = useSelector(state => state.hashMap)
 	const goods = useSelector(state => state.goods.goods)
-	const hashMapInCart = useSelector(state => state.hashMap.hashMap);
+	const hashMapInCart = useSelector(state => state.cart);
 	const user = useSelector(state => state.user)
+
 	const navigate = useNavigate();
-	useEffect(() => {
-		if (!Boolean(user.login)) {
-			navigate("/auth")
-		}
-	}, [])
 	const orderedGoods = []
 	for (const [key, value] of Object.entries(hashMapInCart)) {
 		let newItem = { ...goods.filter(i => i.id === key)[0], count: value }
 		orderedGoods.push(newItem)
 	}
 	const [form] = Form.useForm();
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const showModal = () => {
-	  setIsModalOpen(true);
-	};
-	const handleOk = () => {
-		form.resetFields();
-		setIsModalOpen(false);
-		navigate("/")
-	};
-	const handleCancel = () => {
-		setIsModalOpen(false);
-		navigate("/")
+
+	const success = () => {
+		Modal.success({
+			content: 'Заказ успешно оформлен',
+			onOk() {
+				handleOk();
+			},
+		});
 	};
 
 	const layout = {
@@ -45,7 +36,6 @@ const Payment = () => {
 		},
 	  };
 	  
-	  /* eslint-disable no-template-curly-in-string */
 	const validateMessages = {
 		required: '${label} is required!',
 		types: {
@@ -57,11 +47,15 @@ const Payment = () => {
 		},
 	};
 	
-		const onFinish = (values) => {
-			console.log('Заказ успешно создан. Данные пользователя: ', values.user, 'список товаров: ', orderedGoods);
-			dispatch(deleteAllItemFromCart())
+	const onFinish = (values) => {
+		success();
+		console.log('Заказ успешно создан. Данные пользователя: ', values.user, 'список товаров: ', orderedGoods);
+		dispatch(deleteAllItemFromCart())
 	};
 	
+	if (!Boolean(user.login)) {
+		return <Navigate to='/auth' replace/>
+	}
 	
 
 	return (
@@ -126,16 +120,13 @@ const Payment = () => {
 					offset: 8,
 				}}
 				>
-				<Button type="primary" htmlType="submit" onClick={showModal}>
-					Оформить заказ
+				<Button type="primary" htmlType="submit">
+					Оформить заказ	
 				</Button>
 				</Form.Item>
 			</Form>
-			<Modal title="Заказ успешно оформлен" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        		<p>В ближайшее время менеджер свяжется с вами для подтверждения заказа</p>
-      		</Modal>
 		</div>
 	);
 };
 
-export default Payment;
+export default OrderPage;

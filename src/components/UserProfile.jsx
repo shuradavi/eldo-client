@@ -14,15 +14,20 @@ const UserProfile = () => {
 		navigate('/')
 	}
 
-	return (
-		<div className='profile-container'>
-			<span>Your profile</span>
-			<div className='profile-content'>
-				<span>Welcome, {userName}</span>
-				<button style={{ backgroundColor: 'red' }} onClick={onLogOutClickHandler}>Выйти</button>
-			</div>
-		</div>
-	);
-};
+	if (Boolean(userName)) {
+		return (
+			<div className='profile-container'>
+				<span>Your profile</span>
+				<div className='profile-content'>
+					<span>Welcome, {userName}</span>
+					<button style={{ backgroundColor: 'red' }} onClick={onLogOutClickHandler}>Выйти</button>
+				</div>
+			</div> 
+		);
+	}
 
+	else {
+		return (<Navigate to='/' replace />);
+	}
+}
 export default UserProfile;

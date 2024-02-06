@@ -51,9 +51,9 @@ const GoodsList = () => {
 		return g.name.toLowerCase().includes(filtersValue.name.toLowerCase())
 	}
 	const filterByCategory = (g) => {
-		if (!filtersValue.category.length) {
+		if (!filtersValue.category.length || (filtersValue.category === "all")) {
 			return true
-		} else if (filtersValue.category.join('-').toLowerCase().includes(g.category.toLowerCase())) {
+		} else if (filtersValue.category.toLowerCase().includes(g.category.toLowerCase())) {
 			return true
 		} else
 			return false
@@ -95,12 +95,10 @@ const GoodsList = () => {
 					<div className='filters'>
 						<Select
 							className='category-select'
-							mode="tags"
 							placeholder="Выберите категорию"
-							showSearch={false}
 							onChange={onSelectHandler}
 							options={options}
-						/>
+    					/>
 						<div className='cost-best-input'>
 							<CostFilter inputCostValue={inputCostValue} setInputCostValue={setInputCostValue} />
 							<Checkbox className='checkbox' onChange={onCheckedHandler}></Checkbox>

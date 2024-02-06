@@ -15,6 +15,7 @@ import goodsSlice from './goodsSlice'
 import currentProductSlice from './currentProductSlice'
 import cartSlice from './cartSlice'
 import userSlice from './userSlice'
+import notificationSlice from './notificationSlice'
 
 // const rootReducer = combineReducers({
 // 	goods: goodsSlice,
@@ -48,6 +49,7 @@ const store = configureStore({
 		product: currentProductSlice,
 		cart: cartSlice,
 		user: userSlice,
+		notification: notificationSlice,
   },
   })
 
