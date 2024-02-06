@@ -7,17 +7,22 @@ import { deleteAllItemFromCart } from '../store/cartSlice';
 const OrderPage = () => {
 	const dispatch = useDispatch();
 	const goods = useSelector(state => state.goods.goods)
-	const hashMapInCart = useSelector(state => state.cart);
+	const hashMapInCart = useSelector(state => state.cart.cart);
 	const user = useSelector(state => state.user)
 
 	const navigate = useNavigate();
 	const orderedGoods = []
 	for (const [key, value] of Object.entries(hashMapInCart)) {
+		// console.log('goods: ', goods);
+		// console.log('key: ', key);
 		let newItem = { ...goods.filter(i => i.id === key)[0], count: value }
+		// console.log('new Item: ', newItem);
 		orderedGoods.push(newItem)
 	}
 	const [form] = Form.useForm();
-
+	const handleOk = () => {
+		navigate('/')
+	}
 	const success = () => {
 		Modal.success({
 			content: 'Заказ успешно оформлен',
