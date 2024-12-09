@@ -17,41 +17,42 @@ import cartSlice from './cartSlice'
 import userSlice from './userSlice'
 import notificationSlice from './notificationSlice'
 
-// const rootReducer = combineReducers({
-// 	goods: goodsSlice,
-// 	product: currentProductSlice,
-// 	hashMap: cartSlice,
-// 	user: userSlice,
-// })
+const rootReducer = combineReducers({
+	goods: goodsSlice,
+	product: currentProductSlice,
+	cart: cartSlice,
+	user: userSlice,
+	notification: notificationSlice,
+})
 
 
 
-// const persistConfig = {
-// 	key: 'root',
-// 	storage,
-// }
+const persistConfig = {
+	key: 'root',
+	storage,
+}
 
-// const persistedReducer = persistReducer(persistConfig, rootReducer)
-
-// const store = configureStore({
-// 	reducer: persistedReducer,
-// 	middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware({
-//       serializableCheck: {
-//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-//       },
-//     }),
-// })
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
-	reducer: {
-		goods: goodsSlice,
-		product: currentProductSlice,
-		cart: cartSlice,
-		user: userSlice,
-		notification: notificationSlice,
-  },
-  })
+	reducer: persistedReducer,
+	middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+})
 
-// export const persistor = persistStore(store);
+// const store = configureStore({
+// 	reducer: {
+// 		goods: goodsSlice,
+// 		product: currentProductSlice,
+// 		cart: cartSlice,
+// 		user: userSlice,
+// 		notification: notificationSlice,
+//   },
+//   })
+
+export const persistor = persistStore(store);
 export default store;
