@@ -1,7 +1,7 @@
 export const hostUrl = {
-	listItems: '87.228.37.230:4002/goods',
+	listItems: 'localhost:4002/goods',
 	getItem: '87.228.37.230:4002/goods',
-	signUp: '87.228.37.230:4002/signup',
+	signUp: 'localhost:4002/signup',
 	signIn: '87.228.37.230:4002/signin',
 	logOut: '87.228.37.230:4002/logout',
 }
