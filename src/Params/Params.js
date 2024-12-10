@@ -1,9 +1,9 @@
 export const hostUrl = {
-	listItems: 'http://localhost:4002/goods',
-	getItem: 'http://localhost:4002/goods',
-	signUp: 'http://localhost:4002/signup',
-	signIn: 'http://localhost:4002/signin',
-	logOut: 'http://localhost:4002/logout',
+	listItems: '87.228.37.230:4002/goods',
+	getItem: '87.228.37.230:4002/goods',
+	signUp: '87.228.37.230:4002/signup',
+	signIn: '87.228.37.230:4002/signin',
+	logOut: '87.228.37.230:4002/logout',
 }
 
 export const LABELS = ['Товар', 'Товара', 'Товаров']
